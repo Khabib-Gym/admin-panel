@@ -6,3 +6,5 @@ export { usersApi } from './users';
 export type { UserListParams, UpdateUserInput, UpdateUserRoleInput } from './users';
 export { classesApi } from './classes';
 export type { ClassListParams, CreateClassInput, UpdateClassInput } from './classes';
+export { analyticsApi } from './analytics';
+export type { DashboardStats, RecentActivityItem, RecentActivityResponse } from './analytics';
