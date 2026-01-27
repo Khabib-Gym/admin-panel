@@ -1,9 +1,9 @@
 'use client';
 
+import { formatDistanceToNow } from 'date-fns';
+import { Calendar, Clock, Dumbbell, User } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Calendar, User, Clock, Dumbbell } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
 import type { RecentActivityItem as Activity } from '@/lib/api/analytics';
 
 const activityIcons = {

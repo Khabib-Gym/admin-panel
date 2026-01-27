@@ -1,12 +1,12 @@
 'use client';
 
+import { ArrowLeft, Calendar, DollarSign, TrendingUp, Users } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { StatCard } from '@/components/dashboard/stat-card';
 import { AreaChart, BarChart } from '@/components/charts';
+import { StatCard } from '@/components/dashboard/stat-card';
 import { PageLoader } from '@/components/shared/loading-spinner';
+import { Button } from '@/components/ui/button';
 import { useGym, useGymAnalytics } from '@/hooks/queries/use-gyms';
-import { ArrowLeft, Users, TrendingUp, Calendar, DollarSign } from 'lucide-react';
 
 interface GymAnalyticsViewProps {
   gymId: string;

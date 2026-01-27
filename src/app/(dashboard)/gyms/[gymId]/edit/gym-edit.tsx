@@ -1,16 +1,16 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { GymForm } from '@/components/forms/gym-form';
 import { PageLoader } from '@/components/shared/loading-spinner';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGym, useUpdateGym } from '@/hooks/queries/use-gyms';
-import { toast } from 'sonner';
-import { ArrowLeft } from 'lucide-react';
-import type { GymFormValues } from '@/lib/validations/gym';
 import type { UpdateGymInput } from '@/lib/api/gyms';
+import type { GymFormValues } from '@/lib/validations/gym';
 
 interface GymEditProps {
   gymId: string;

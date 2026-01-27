@@ -1,15 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { GymForm } from '@/components/forms/gym-form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { GymForm } from '@/components/forms/gym-form';
 import { useCreateGym } from '@/hooks/queries/use-gyms';
-import { toast } from 'sonner';
-import { ArrowLeft } from 'lucide-react';
-import type { GymFormValues } from '@/lib/validations/gym';
 import type { CreateGymInput } from '@/lib/api/gyms';
+import type { GymFormValues } from '@/lib/validations/gym';
 
 export function NewGym() {
   const router = useRouter();

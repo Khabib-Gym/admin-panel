@@ -1,6 +1,6 @@
-import { apiGet, apiPatch, type QueryParams } from './client';
-import type { User, UserWithStats } from '@/types/models';
 import type { PaginatedResponse, PaginationParams, SortParams } from '@/types/api';
+import type { User, UserWithStats } from '@/types/models';
+import { apiGet, apiPatch, type QueryParams } from './client';
 
 export interface UserListParams extends PaginationParams, SortParams {
   role?: 'member' | 'coach' | 'admin' | 'super_admin';
@@ -26,8 +26,7 @@ export const usersApi = {
 
   getById: (id: string) => apiGet<UserWithStats>(`/admin/users/${id}`),
 
-  update: (id: string, input: UpdateUserInput) =>
-    apiPatch<User>(`/admin/users/${id}`, input),
+  update: (id: string, input: UpdateUserInput) => apiPatch<User>(`/admin/users/${id}`, input),
 
   updateRole: (id: string, input: UpdateUserRoleInput) =>
     apiPatch<User>(`/admin/users/${id}/role`, input),

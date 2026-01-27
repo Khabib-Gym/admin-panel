@@ -1,6 +1,6 @@
-import { requireAuth } from '@/lib/auth/guards';
 import { AdminDashboard } from '@/components/dashboard/admin-dashboard';
 import { CoachDashboard } from '@/components/dashboard/coach-dashboard';
+import { requireAuth } from '@/lib/auth/guards';
 
 export default async function DashboardPage() {
   const session = await requireAuth();

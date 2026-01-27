@@ -1,6 +1,6 @@
-import { apiGet, apiPost, apiPatch, apiDelete, type QueryParams } from './client';
-import type { Gym, GymDetailResponse, GymAnalytics, User, Membership } from '@/types/models';
 import type { PaginatedResponse, PaginationParams, SortParams } from '@/types/api';
+import type { Gym, GymAnalytics, GymDetailResponse, Membership, User } from '@/types/models';
+import { apiDelete, apiGet, apiPatch, apiPost, type QueryParams } from './client';
 
 export interface GymListParams extends PaginationParams, SortParams {
   city?: string;
@@ -47,8 +47,7 @@ export const gymsApi = {
   getAnalytics: (id: string) => apiGet<GymAnalytics>(`/admin/gyms/${id}/analytics`),
 
   getMembers: (id: string, params?: PaginationParams) =>
-    apiGet<PaginatedResponse<{ user: User; membership: Membership }>>(
-      `/admin/gyms/${id}/members`,
-      { params: params as QueryParams },
-    ),
+    apiGet<PaginatedResponse<{ user: User; membership: Membership }>>(`/admin/gyms/${id}/members`, {
+      params: params as QueryParams,
+    }),
 };

@@ -1,12 +1,17 @@
 'use client';
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { gymsApi, type GymListParams, type CreateGymInput, type UpdateGymInput } from '@/lib/api/gyms';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  type CreateGymInput,
+  type GymListParams,
+  gymsApi,
+  type UpdateGymInput,
+} from '@/lib/api/gyms';
 import { queryKeys } from '@/lib/query/keys';
 
 export function useGyms(params?: GymListParams) {
   return useQuery({
-    queryKey: queryKeys.gyms.list(params as Record<string, unknown> || {}),
+    queryKey: queryKeys.gyms.list((params as Record<string, unknown>) || {}),
     queryFn: () => gymsApi.list(params),
   });
 }

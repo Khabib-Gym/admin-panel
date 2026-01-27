@@ -1,13 +1,13 @@
 'use client';
 
+import { Calendar, Mail, MapPin, Pencil, Phone, TrendingUp, Users } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { StatCard } from '@/components/dashboard/stat-card';
 import { PageLoader } from '@/components/shared/loading-spinner';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGym, useGymAnalytics } from '@/hooks/queries/use-gyms';
-import { Pencil, MapPin, Phone, Mail, Users, Calendar, TrendingUp } from 'lucide-react';
 
 interface GymDetailsProps {
   gymId: string;

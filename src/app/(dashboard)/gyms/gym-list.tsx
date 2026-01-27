@@ -1,18 +1,18 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Building2, Plus } from 'lucide-react';
 import Link from 'next/link';
-import { DataTable } from '@/components/data-table';
-import { Button } from '@/components/ui/button';
-import { ConfirmDialog } from '@/components/shared/confirm-dialog';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import { EmptyState } from '@/components/shared/empty-state';
-import { useGyms, useDeleteGym } from '@/hooks/queries/use-gyms';
-import { getGymColumns } from './columns';
-import { Plus, Building2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'sonner';
+import { DataTable } from '@/components/data-table';
+import { ConfirmDialog } from '@/components/shared/confirm-dialog';
+import { EmptyState } from '@/components/shared/empty-state';
+import { PageLoader } from '@/components/shared/loading-spinner';
+import { Button } from '@/components/ui/button';
+import { useDeleteGym, useGyms } from '@/hooks/queries/use-gyms';
 import type { Gym } from '@/types/models';
+import { getGymColumns } from './columns';
 
 export function GymList() {
   const router = useRouter();

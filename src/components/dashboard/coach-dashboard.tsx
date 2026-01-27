@@ -1,14 +1,14 @@
 'use client';
 
 import { Calendar, Clock, DollarSign, Star, Users } from 'lucide-react';
+import Link from 'next/link';
+import { PageLoader } from '@/components/shared/loading-spinner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { StatCard } from './stat-card';
-import { UpcomingSchedule } from './upcoming-schedule';
 import { useCoachDashboardStats } from '@/hooks/queries/use-analytics';
 import { useCoachUpcomingClasses, useCoachUpcomingSessions } from '@/hooks/queries/use-coach';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import Link from 'next/link';
+import { StatCard } from './stat-card';
+import { UpcomingSchedule } from './upcoming-schedule';
 
 interface CoachDashboardProps {
   userName: string;
@@ -59,7 +59,11 @@ export function CoachDashboard({ userName }: CoachDashboardProps) {
         />
         <StatCard
           title="Average Rating"
-          value={stats?.average_rating && stats.average_rating > 0 ? stats.average_rating.toFixed(1) : 'N/A'}
+          value={
+            stats?.average_rating && stats.average_rating > 0
+              ? stats.average_rating.toFixed(1)
+              : 'N/A'
+          }
           description={`${stats?.total_ratings ?? 0} ratings`}
           icon={Star}
         />

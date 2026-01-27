@@ -1,11 +1,11 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
+import { BarChart, MapPin, Pencil, Trash, Users } from 'lucide-react';
 import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
 import { DataTableColumnHeader } from '@/components/data-table/column-header';
 import { DataTableRowActions, type RowAction } from '@/components/data-table/row-actions';
-import { Pencil, Trash, BarChart, Users, MapPin } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import type { Gym } from '@/types/models';
 
 interface ColumnActionsProps {

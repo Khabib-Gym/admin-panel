@@ -40,8 +40,15 @@ export function useUpdateUserRole() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, new_role, reason }: { id: string; new_role: UpdateUserRoleInput['new_role']; reason?: string }) =>
-      usersApi.updateRole(id, { new_role, reason }),
+    mutationFn: ({
+      id,
+      new_role,
+      reason,
+    }: {
+      id: string;
+      new_role: UpdateUserRoleInput['new_role'];
+      reason?: string;
+    }) => usersApi.updateRole(id, { new_role, reason }),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.users.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.users.detail(id) });

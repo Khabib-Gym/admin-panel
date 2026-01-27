@@ -1,7 +1,8 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,8 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
-import { Loader2 } from 'lucide-react';
-import { gymSchema, type GymFormValues, defaultGymValues } from '@/lib/validations/gym';
+import { defaultGymValues, type GymFormValues, gymSchema } from '@/lib/validations/gym';
 
 interface GymFormProps {
   initialData?: GymFormValues;
@@ -157,7 +157,12 @@ export function GymForm({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ''} type="email" placeholder="info@gym.com" />
+                  <Input
+                    {...field}
+                    value={field.value ?? ''}
+                    type="email"
+                    placeholder="info@gym.com"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -1,20 +1,20 @@
 'use client';
 
-import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { Button } from '@/components/ui/button';
+import type { ColumnDef } from '@tanstack/react-table';
+import { format } from 'date-fns';
+import { ArrowLeft, User } from 'lucide-react';
+import Link from 'next/link';
 import { DataTable } from '@/components/data-table';
 import { DataTableColumnHeader } from '@/components/data-table/column-header';
+import { PageLoader } from '@/components/shared/loading-spinner';
 import { RoleBadge } from '@/components/shared/role-badge';
 import { StatusBadge } from '@/components/shared/status-badge';
-import { PageLoader } from '@/components/shared/loading-spinner';
+import { Button } from '@/components/ui/button';
 import { useGym } from '@/hooks/queries/use-gyms';
 import { gymsApi } from '@/lib/api/gyms';
 import { queryKeys } from '@/lib/query/keys';
-import { ArrowLeft, User } from 'lucide-react';
-import { format } from 'date-fns';
-import type { ColumnDef } from '@tanstack/react-table';
-import type { User as UserType, Membership } from '@/types/models';
+import type { Membership, User as UserType } from '@/types/models';
 
 interface GymMembersProps {
   gymId: string;

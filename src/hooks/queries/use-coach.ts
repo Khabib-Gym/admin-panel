@@ -1,10 +1,10 @@
 'use client';
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiGet, apiPost, apiPatch } from '@/lib/api/client';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { apiGet, apiPatch, apiPost } from '@/lib/api/client';
 import { queryKeys } from '@/lib/query/keys';
-import type { CoachProfile, CoachAvailability, Class, PrivateSession } from '@/types/models';
 import type { PaginatedResponse } from '@/types/api';
+import type { Class, CoachAvailability, CoachProfile, PrivateSession } from '@/types/models';
 
 export function useCoachProfile() {
   return useQuery({
@@ -17,7 +17,8 @@ export function useUpdateCoachProfile() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: Partial<CoachProfile>) => apiPatch<CoachProfile>('/coaches/me/profile', data),
+    mutationFn: (data: Partial<CoachProfile>) =>
+      apiPatch<CoachProfile>('/coaches/me/profile', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.coaches.profile() });
     },

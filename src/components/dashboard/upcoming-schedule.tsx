@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { format } from 'date-fns';
 import { Clock, User } from 'lucide-react';
+import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { Class, PrivateSession } from '@/types/models';
@@ -43,9 +43,7 @@ export function UpcomingSchedule({
   }
 
   if (items.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground text-center py-8">{emptyMessage}</p>
-    );
+    return <p className="text-sm text-muted-foreground text-center py-8">{emptyMessage}</p>;
   }
 
   return (

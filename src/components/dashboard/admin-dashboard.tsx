@@ -1,14 +1,14 @@
 'use client';
 
-import { Building2, Users, Calendar, TrendingUp } from 'lucide-react';
+import { Building2, Calendar, TrendingUp, Users } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { StatCard } from './stat-card';
-import { RecentActivity } from './recent-activity';
-import { GymSummary } from './gym-summary';
-import { useGyms } from '@/hooks/queries/use-gyms';
 import { useDashboardStats, useRecentActivity } from '@/hooks/queries/use-analytics';
-import Link from 'next/link';
+import { useGyms } from '@/hooks/queries/use-gyms';
+import { GymSummary } from './gym-summary';
+import { RecentActivity } from './recent-activity';
+import { StatCard } from './stat-card';
 
 interface AdminDashboardProps {
   userName: string;
