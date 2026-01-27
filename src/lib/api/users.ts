@@ -16,14 +16,15 @@ export interface UpdateUserInput {
 }
 
 export interface UpdateUserRoleInput {
-  role: 'member' | 'coach' | 'admin' | 'super_admin';
+  new_role: 'member' | 'coach' | 'admin' | 'super_admin';
+  reason?: string;
 }
 
 export const usersApi = {
   list: (params?: UserListParams) =>
     apiGet<PaginatedResponse<User>>('/admin/users', { params: params as QueryParams }),
 
-  getById: (id: string) => apiGet<UserWithStats>(`/users/${id}`),
+  getById: (id: string) => apiGet<UserWithStats>(`/admin/users/${id}`),
 
   update: (id: string, input: UpdateUserInput) =>
     apiPatch<User>(`/admin/users/${id}`, input),

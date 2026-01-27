@@ -1,0 +1,220 @@
+name: Deploy Admin Panel
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - prod
+      image_tag:
+        description: 'Image tag (defaults to git SHA)'
+        required: false
+        type: string
+
+defaults:
+  run:
+    working-directory: admin
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: admin/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run type check
+        run: npm run typecheck
+
+      - name: Build application
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NEXTAUTH_SECRET: dummy-secret-for-build
+          NEXTAUTH_URL: http://localhost:3000
+          NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+
+  build-and-deploy:
+    name: Build and Deploy to ${{ github.event.inputs.environment }}
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set variables
+        id: vars
+        run: |
+          # Set image tag
+          if [ -n "${{ github.event.inputs.image_tag }}" ]; then
+            IMAGE_TAG="${{ github.event.inputs.image_tag }}"
+          else
+            IMAGE_TAG="${{ github.sha }}"
+          fi
+
+          # Get AWS Account ID
+          AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+          # Construct ECR registry and image URI
+          ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com"
+          ECR_REPOSITORY="${{ github.event.inputs.environment }}-khabib-admin"
+          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+
+          echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+          echo "ecr_registry=${ECR_REGISTRY}" >> $GITHUB_OUTPUT
+          echo "ecr_repository=${ECR_REPOSITORY}" >> $GITHUB_OUTPUT
+          echo "image_uri=${IMAGE_URI}" >> $GITHUB_OUTPUT
+
+          echo "=== Build Variables ==="
+          echo "AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}"
+          echo "ECR_REGISTRY: ${ECR_REGISTRY}"
+          echo "ECR_REPOSITORY: ${ECR_REPOSITORY}"
+          echo "IMAGE_TAG: ${IMAGE_TAG}"
+          echo "IMAGE_URI: ${IMAGE_URI}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./admin
+          file: ./admin/Dockerfile
+          push: true
+          tags: |
+            ${{ steps.vars.outputs.image_uri }}
+            ${{ steps.vars.outputs.ecr_registry }}/${{ steps.vars.outputs.ecr_repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_TELEMETRY_DISABLED=1
+
+      - name: Update ECS Task Definition
+        id: update-task
+        run: |
+          IMAGE_URI="${{ steps.vars.outputs.image_uri }}"
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+
+          echo "Deploying image: ${IMAGE_URI}"
+          echo "Environment: ${ENVIRONMENT}"
+
+          # Get current task definition
+          TASK_DEF=$(aws ecs describe-task-definition \
+            --task-definition ${ENVIRONMENT}-khabib-admin \
+            --query 'taskDefinition' \
+            --output json)
+
+          # Update the image
+          NEW_TASK_DEF=$(echo $TASK_DEF | jq --arg IMAGE "$IMAGE_URI" \
+            '.containerDefinitions[0].image = $IMAGE |
+             del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
+
+          # Register new task definition
+          NEW_TASK_ARN=$(aws ecs register-task-definition \
+            --cli-input-json "$NEW_TASK_DEF" \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+
+          echo "task_arn=${NEW_TASK_ARN}" >> $GITHUB_OUTPUT
+          echo "New task definition: ${NEW_TASK_ARN}"
+
+      - name: Update ECS Service
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+
+          aws ecs update-service \
+            --cluster ${ENVIRONMENT}-khabib-cluster \
+            --service ${ENVIRONMENT}-khabib-admin \
+            --task-definition ${{ steps.update-task.outputs.task_arn }} \
+            --force-new-deployment
+
+          echo "Deployment initiated for ${ENVIRONMENT}-khabib-admin"
+
+      - name: Wait for deployment
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+
+          echo "Waiting for service to stabilize..."
+          aws ecs wait services-stable \
+            --cluster ${ENVIRONMENT}-khabib-cluster \
+            --services ${ENVIRONMENT}-khabib-admin
+
+          echo "Deployment complete!"
+
+      - name: Get deployment status
+        if: always()
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+
+          aws ecs describe-services \
+            --cluster ${ENVIRONMENT}-khabib-cluster \
+            --services ${ENVIRONMENT}-khabib-admin \
+            --query 'services[0].{Status:status,RunningCount:runningCount,DesiredCount:desiredCount,Deployments:deployments[*].{Status:status,RunningCount:runningCount,DesiredCount:desiredCount,RolloutState:rolloutState}}' \
+            --output table
+
+      - name: Output deployment info
+        if: success()
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+          IMAGE_URI="${{ steps.vars.outputs.image_uri }}"
+
+          echo "========================================"
+          echo "Deployment Summary"
+          echo "========================================"
+          echo "Environment: ${ENVIRONMENT}"
+          echo "Image: ${IMAGE_URI}"
+          echo "Service: ${ENVIRONMENT}-khabib-admin"
+          echo "Cluster: ${ENVIRONMENT}-khabib-cluster"
+          echo "========================================"
+
+  notify-failure:
+    name: Notify on Failure
+    needs: [validate, build-and-deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create failure summary
+        run: |
+          echo "## Deployment Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the workflow logs for details." >> $GITHUB_STEP_SUMMARY

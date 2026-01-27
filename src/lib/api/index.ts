@@ -8,3 +8,5 @@ export { classesApi } from './classes';
 export type { ClassListParams, CreateClassInput, UpdateClassInput } from './classes';
 export { analyticsApi } from './analytics';
 export type { DashboardStats, RecentActivityItem, RecentActivityResponse } from './analytics';
+export { membershipsApi } from './memberships';
+export type { MembershipListParams, UpdateMembershipInput } from './memberships';

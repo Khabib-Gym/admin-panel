@@ -1,0 +1,27 @@
+# CODEOWNERS for Admin Panel
+# These owners will be requested for review when someone opens a pull request.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the admin directory
+* @your-org/admin-team
+
+# CI/CD configuration
+/.github/ @your-org/devops-team @your-org/admin-team
+
+# Infrastructure related
+/Dockerfile @your-org/devops-team
+/.dockerignore @your-org/devops-team
+
+# Security-sensitive files
+/src/lib/auth/ @your-org/security-team @your-org/admin-team
+/src/app/api/auth/ @your-org/security-team @your-org/admin-team
+
+# API integration
+/src/lib/api/ @your-org/backend-team @your-org/admin-team
+/src/services/ @your-org/backend-team @your-org/admin-team
+
+# Configuration files
+/next.config.ts @your-org/admin-team
+/biome.json @your-org/admin-team
+/tsconfig.json @your-org/admin-team
+/package.json @your-org/admin-team
