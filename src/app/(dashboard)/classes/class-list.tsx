@@ -29,6 +29,7 @@ export function ClassList() {
 
   const { data, isLoading, error } = useClasses({
     upcoming_only: activeTab === 'upcoming',
+    past_only: activeTab === 'past',
   });
 
   const { mutate: deleteMutation, isPending: isDeleting } = useDeleteClass();

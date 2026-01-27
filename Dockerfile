@@ -32,11 +32,16 @@ COPY . .
 ARG NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_TELEMETRY_DISABLED=$NEXT_TELEMETRY_DISABLED
 
+# Build-time environment variables
+# NEXT_PUBLIC_* vars are baked into the build
+ARG NEXT_PUBLIC_BASE_PATH=""
+ARG NEXT_PUBLIC_API_URL="http://localhost:8000/api/v1"
+ENV NEXT_PUBLIC_BASE_PATH=$NEXT_PUBLIC_BASE_PATH
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 # Set dummy environment variables for build time
-# These are replaced at runtime by actual values
 ENV NEXTAUTH_SECRET=build-time-dummy-secret
 ENV NEXTAUTH_URL=http://localhost:3000
-ENV NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
 
 # Build the application
 RUN npm run build
@@ -51,6 +56,10 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Carry over the base path from build stage for health check
+ARG NEXT_PUBLIC_BASE_PATH=""
+ENV NEXT_PUBLIC_BASE_PATH=$NEXT_PUBLIC_BASE_PATH
 
 # Create non-root user for security
 RUN addgroup --system --gid 1001 nodejs && \
@@ -76,9 +85,9 @@ EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
 ENV PORT=3000
 
-# Health check
+# Health check - uses NEXT_PUBLIC_BASE_PATH if set, otherwise root
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000${NEXT_PUBLIC_BASE_PATH:-}/ || exit 1
 
 # Start the application
 CMD ["node", "server.js"]

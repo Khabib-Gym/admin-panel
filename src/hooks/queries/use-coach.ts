@@ -2,9 +2,18 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiGet, apiPatch, apiPost } from '@/lib/api/client';
+import { coachesApi, type CoachDetailResponse } from '@/lib/api/coaches';
 import { queryKeys } from '@/lib/query/keys';
 import type { PaginatedResponse } from '@/types/api';
 import type { Class, CoachAvailability, CoachProfile, PrivateSession } from '@/types/models';
+
+export function useCoach(id: string) {
+  return useQuery<CoachDetailResponse>({
+    queryKey: queryKeys.coaches.detail(id),
+    queryFn: () => coachesApi.getById(id),
+    enabled: !!id,
+  });
+}
 
 export function useCoachProfile() {
   return useQuery({

@@ -146,7 +146,7 @@ export interface CoachAvailability {
   id: string;
   coach_id: string;
   gym_id: string;
-  day_of_week: number;
+  day_of_week: string;
   start_time: string;
   end_time: string;
   is_recurring: boolean;

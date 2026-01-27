@@ -8,6 +8,7 @@ export interface ClassListParams extends PaginationParams, SortParams {
   type?: string;
   status?: string;
   upcoming_only?: boolean;
+  past_only?: boolean;
   start_date?: string;
   end_date?: string;
 }

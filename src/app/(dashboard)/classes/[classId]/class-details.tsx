@@ -31,6 +31,8 @@ import {
   useCompleteClass,
   useStartClass,
 } from '@/hooks/queries/use-classes';
+import { useCoach } from '@/hooks/queries/use-coach';
+import { useGym } from '@/hooks/queries/use-gyms';
 
 interface ClassDetailsProps {
   classId: string;
@@ -41,9 +43,14 @@ export function ClassDetails({ classId }: ClassDetailsProps) {
   const [showCancelDialog, setShowCancelDialog] = useState(false);
 
   const { data: classItem, isLoading, error } = useClass(classId);
+  const { data: gymData } = useGym(classItem?.gym_id ?? '');
+  const { data: coach } = useCoach(classItem?.coach_id ?? '');
   const { mutate: startMutation, isPending: isStarting } = useStartClass();
   const { mutate: completeMutation, isPending: isCompleting } = useCompleteClass();
   const { mutate: cancelMutation, isPending: isCancelling } = useCancelClass();
+
+  // Extract gym from response (API returns { gym, active_members, visits_today })
+  const gym = gymData?.gym;
 
   if (isLoading) {
     return <PageLoader />;
@@ -220,7 +227,7 @@ export function ClassDetails({ classId }: ClassDetailsProps) {
               <div>
                 <p className="font-medium">Coach</p>
                 <p className="text-sm text-muted-foreground">
-                  {classItem.coach?.user?.first_name} {classItem.coach?.user?.last_name}
+                  {coach?.first_name} {coach?.last_name}
                 </p>
               </div>
             </div>
@@ -229,10 +236,10 @@ export function ClassDetails({ classId }: ClassDetailsProps) {
               <MapPin className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="font-medium">Gym</p>
-                <p className="text-sm text-muted-foreground">{classItem.gym?.name}</p>
-                {classItem.gym?.city && (
+                <p className="text-sm text-muted-foreground">{gym?.name}</p>
+                {gym?.city && (
                   <p className="text-xs text-muted-foreground">
-                    {classItem.gym.city}, {classItem.gym.country}
+                    {gym.city}, {gym.country}
                   </p>
                 )}
               </div>

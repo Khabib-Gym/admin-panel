@@ -60,6 +60,7 @@ jobs:
           NEXTAUTH_SECRET: dummy-secret-for-build
           NEXTAUTH_URL: http://localhost:3000
           NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+          NEXT_PUBLIC_BASE_PATH: ${{ github.event.inputs.environment == 'staging' && '/admin' || '' }}
 
   build-and-deploy:
     name: Build and Deploy to ${{ github.event.inputs.environment }}
@@ -83,6 +84,8 @@ jobs:
       - name: Set variables
         id: vars
         run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+
           # Set image tag
           if [ -n "${{ github.event.inputs.image_tag }}" ]; then
             IMAGE_TAG="${{ github.event.inputs.image_tag }}"
@@ -95,13 +98,32 @@ jobs:
 
           # Construct ECR registry and image URI
           ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com"
-          ECR_REPOSITORY="${{ github.event.inputs.environment }}-khabib-admin"
+          ECR_REPOSITORY="${ENVIRONMENT}-khabib-admin"
           IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+
+          # Get ALB DNS for the environment
+          ALB_DNS=$(aws cloudformation describe-stacks \
+            --stack-name ${ENVIRONMENT}-khabib-alb \
+            --query 'Stacks[0].Outputs[?OutputKey==`ALBDNSName`].OutputValue' \
+            --output text)
+
+          # Set environment-specific build variables
+          if [ "${ENVIRONMENT}" == "staging" ]; then
+            # Staging uses path-based routing (/admin)
+            NEXT_PUBLIC_BASE_PATH="/admin"
+            NEXT_PUBLIC_API_URL="http://${ALB_DNS}/api/v1"
+          else
+            # Production uses host-based routing (no base path)
+            NEXT_PUBLIC_BASE_PATH=""
+            NEXT_PUBLIC_API_URL="https://api.khabib.com/api/v1"
+          fi
 
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
           echo "ecr_registry=${ECR_REGISTRY}" >> $GITHUB_OUTPUT
           echo "ecr_repository=${ECR_REPOSITORY}" >> $GITHUB_OUTPUT
           echo "image_uri=${IMAGE_URI}" >> $GITHUB_OUTPUT
+          echo "base_path=${NEXT_PUBLIC_BASE_PATH}" >> $GITHUB_OUTPUT
+          echo "api_url=${NEXT_PUBLIC_API_URL}" >> $GITHUB_OUTPUT
 
           echo "=== Build Variables ==="
           echo "AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}"
@@ -109,6 +131,9 @@ jobs:
           echo "ECR_REPOSITORY: ${ECR_REPOSITORY}"
           echo "IMAGE_TAG: ${IMAGE_TAG}"
           echo "IMAGE_URI: ${IMAGE_URI}"
+          echo "ALB_DNS: ${ALB_DNS}"
+          echo "NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH}"
+          echo "NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -126,6 +151,8 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             NEXT_TELEMETRY_DISABLED=1
+            NEXT_PUBLIC_BASE_PATH=${{ steps.vars.outputs.base_path }}
+            NEXT_PUBLIC_API_URL=${{ steps.vars.outputs.api_url }}
 
       - name: Update ECS Task Definition
         id: update-task
