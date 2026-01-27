@@ -1,13 +1,9 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  achievementSchema,
-  type AchievementFormValues,
-  ACHIEVEMENT_CATEGORIES,
-  REQUIREMENT_TYPES,
-} from '@/lib/validations/achievement';
+import { Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -18,8 +14,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -27,7 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Loader2 } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  ACHIEVEMENT_CATEGORIES,
+  type AchievementFormValues,
+  achievementSchema,
+  REQUIREMENT_TYPES,
+} from '@/lib/validations/achievement';
 
 interface AchievementFormProps {
   initialData?: Partial<AchievementFormValues>;

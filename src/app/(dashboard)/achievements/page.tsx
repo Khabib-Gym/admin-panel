@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { Plus } from 'lucide-react';
-import { requireRole } from '@/lib/auth/guards';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { requireRole } from '@/lib/auth/guards';
 import { AchievementsList } from './achievements-list';
 
 export default async function AchievementsPage() {

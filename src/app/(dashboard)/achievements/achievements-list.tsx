@@ -1,29 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { MoreHorizontal, Pencil, Star, Target, Trash2, Trophy } from 'lucide-react';
 import Link from 'next/link';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,11 +16,31 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { useAchievements, useDeleteAchievement } from '@/hooks/queries/use-achievements';
 import { ACHIEVEMENT_CATEGORIES, REQUIREMENT_TYPES } from '@/lib/validations/achievement';
-import { Trophy, Target, Star, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
-import { toast } from 'sonner';
 import type { Achievement } from '@/types/models';
 
 function AchievementCategoryBadge({ category }: { category: string }) {
@@ -319,11 +319,7 @@ export function AchievementsList() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDelete}
-              disabled={isDeleting}
-              variant="destructive"
-            >
+            <AlertDialogAction onClick={handleDelete} disabled={isDeleting} variant="destructive">
               {isDeleting ? 'Deleting...' : 'Delete'}
             </AlertDialogAction>
           </AlertDialogFooter>

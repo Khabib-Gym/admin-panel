@@ -1,9 +1,20 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
 import {
   Dialog,
   DialogContent,
@@ -21,6 +32,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
@@ -28,28 +41,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useGyms } from '@/hooks/queries/use-gyms';
 import { useCreateMembershipAdmin } from '@/hooks/queries/use-memberships';
 import { useUsers } from '@/hooks/queries/use-users';
-import { useGyms } from '@/hooks/queries/use-gyms';
-import { MembershipType } from '@/types/models';
-import { Loader2, Check, ChevronsUpDown } from 'lucide-react';
-import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { MembershipType } from '@/types/models';
 
 const createMembershipSchema = z.object({
   user_id: z.string().min(1, 'User is required'),
@@ -57,7 +53,10 @@ const createMembershipSchema = z.object({
   type: z.enum(['basic', 'premium', 'vip', 'trial'], {
     message: 'Membership type is required',
   }),
-  duration_days: z.number().min(1, 'Duration must be at least 1 day').max(365, 'Duration cannot exceed 365 days'),
+  duration_days: z
+    .number()
+    .min(1, 'Duration must be at least 1 day')
+    .max(365, 'Duration cannot exceed 365 days'),
 });
 
 type CreateMembershipFormValues = z.infer<typeof createMembershipSchema>;
@@ -105,7 +104,7 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
         onError: (error) => {
           toast.error(error.message || 'Failed to create membership');
         },
-      }
+      },
     );
   };
 
@@ -117,9 +116,7 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Add Membership</DialogTitle>
-          <DialogDescription>
-            Create a new membership for a user at a gym.
-          </DialogDescription>
+          <DialogDescription>Create a new membership for a user at a gym.</DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -140,7 +137,7 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
                           aria-expanded={userSearchOpen}
                           className={cn(
                             'w-full justify-between',
-                            !field.value && 'text-muted-foreground'
+                            !field.value && 'text-muted-foreground',
                           )}
                         >
                           {selectedUser
@@ -170,12 +167,16 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
                                 <Check
                                   className={cn(
                                     'mr-2 h-4 w-4',
-                                    field.value === user.id ? 'opacity-100' : 'opacity-0'
+                                    field.value === user.id ? 'opacity-100' : 'opacity-0',
                                   )}
                                 />
                                 <div className="flex flex-col">
-                                  <span>{user.first_name} {user.last_name}</span>
-                                  <span className="text-xs text-muted-foreground">{user.email}</span>
+                                  <span>
+                                    {user.first_name} {user.last_name}
+                                  </span>
+                                  <span className="text-xs text-muted-foreground">
+                                    {user.email}
+                                  </span>
                                 </div>
                               </CommandItem>
                             ))}
@@ -205,7 +206,7 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
                           aria-expanded={gymSearchOpen}
                           className={cn(
                             'w-full justify-between',
-                            !field.value && 'text-muted-foreground'
+                            !field.value && 'text-muted-foreground',
                           )}
                         >
                           {selectedGym
@@ -235,12 +236,14 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
                                 <Check
                                   className={cn(
                                     'mr-2 h-4 w-4',
-                                    field.value === gym.id ? 'opacity-100' : 'opacity-0'
+                                    field.value === gym.id ? 'opacity-100' : 'opacity-0',
                                   )}
                                 />
                                 <div className="flex flex-col">
                                   <span>{gym.name}</span>
-                                  <span className="text-xs text-muted-foreground">{gym.city}, {gym.country}</span>
+                                  <span className="text-xs text-muted-foreground">
+                                    {gym.city}, {gym.country}
+                                  </span>
                                 </div>
                               </CommandItem>
                             ))}

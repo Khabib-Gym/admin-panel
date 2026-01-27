@@ -239,7 +239,8 @@ export const AchievementCategory = {
   milestones: 'milestones',
 } as const;
 
-export type AchievementCategoryType = (typeof AchievementCategory)[keyof typeof AchievementCategory];
+export type AchievementCategoryType =
+  (typeof AchievementCategory)[keyof typeof AchievementCategory];
 
 export const RequirementType = {
   total_visits: 'total_visits',

@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { AchievementForm } from '@/components/forms/achievement-form';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCreateAchievement } from '@/hooks/queries/use-achievements';
 import type { AchievementFormValues } from '@/lib/validations/achievement';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function NewAchievementContent() {
   const router = useRouter();

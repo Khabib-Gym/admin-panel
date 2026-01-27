@@ -1,9 +1,9 @@
 'use client';
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  achievementsApi,
   type AchievementListParams,
+  achievementsApi,
   type UpdateAchievementInput,
 } from '@/lib/api/achievements';
 import { queryKeys } from '@/lib/query/keys';

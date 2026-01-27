@@ -1,6 +1,23 @@
 'use client';
 
+import { format } from 'date-fns';
+import { ChevronLeft, ChevronRight, Plus, Search, Users } from 'lucide-react';
 import { useState } from 'react';
+import { CreateMembershipDialog } from '@/components/memberships/create-membership-dialog';
+import { MembershipActions } from '@/components/memberships/membership-actions';
+import { MembershipEditDialog } from '@/components/memberships/membership-edit-dialog';
+import { MembershipStatusBadge } from '@/components/shared/membership-status-badge';
+import { MembershipTypeBadge } from '@/components/shared/membership-type-badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -9,24 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '@/components/ui/button';
 import { useMemberships } from '@/hooks/queries/use-memberships';
-import { MembershipStatusBadge } from '@/components/shared/membership-status-badge';
-import { MembershipTypeBadge } from '@/components/shared/membership-type-badge';
-import { MembershipActions } from '@/components/memberships/membership-actions';
-import { MembershipEditDialog } from '@/components/memberships/membership-edit-dialog';
-import { CreateMembershipDialog } from '@/components/memberships/create-membership-dialog';
-import { Search, Users, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
-import { format } from 'date-fns';
 import type { Membership, MembershipStatusValue } from '@/types/models';
 
 function formatDate(dateStr: string | undefined): string {
@@ -38,13 +38,7 @@ function formatDate(dateStr: string | undefined): string {
   }
 }
 
-function MembershipRow({
-  membership,
-  onEdit,
-}: {
-  membership: Membership;
-  onEdit: () => void;
-}) {
+function MembershipRow({ membership, onEdit }: { membership: Membership; onEdit: () => void }) {
   const userName = membership.user
     ? `${membership.user.first_name} ${membership.user.last_name}`
     : 'Unknown User';
@@ -292,10 +286,7 @@ export function MembershipsList() {
         }}
       />
 
-      <CreateMembershipDialog
-        open={createDialogOpen}
-        onOpenChange={setCreateDialogOpen}
-      />
+      <CreateMembershipDialog open={createDialogOpen} onOpenChange={setCreateDialogOpen} />
     </div>
   );
 }

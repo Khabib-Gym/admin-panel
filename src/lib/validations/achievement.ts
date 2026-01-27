@@ -6,11 +6,7 @@ export const achievementSchema = z.object({
     .min(2, 'Name must be at least 2 characters')
     .max(100, 'Name must be less than 100 characters'),
   description: z.string().max(500, 'Description must be less than 500 characters').optional(),
-  icon_url: z
-    .string()
-    .url('Must be a valid URL')
-    .optional()
-    .or(z.literal('')),
+  icon_url: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   category: z.enum(['visits', 'streaks', 'classes', 'workouts', 'social', 'milestones'], {
     message: 'Category is required',
   }),

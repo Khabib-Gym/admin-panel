@@ -1,6 +1,6 @@
 import type { PaginatedResponse, PaginationParams, SortParams, SuccessResponse } from '@/types/api';
 import type { Achievement } from '@/types/models';
-import { apiGet, apiPost, apiPatch, apiDelete, type QueryParams } from './client';
+import { apiDelete, apiGet, apiPatch, apiPost, type QueryParams } from './client';
 
 export interface AchievementListParams extends PaginationParams, SortParams {
   category?: string;

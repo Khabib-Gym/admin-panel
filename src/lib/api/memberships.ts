@@ -25,7 +25,9 @@ export interface CreateMembershipAdminInput {
 
 export const membershipsApi = {
   list: (params?: MembershipListParams) =>
-    apiGet<PaginatedResponse<Membership>>('/memberships/admin/list', { params: params as QueryParams }),
+    apiGet<PaginatedResponse<Membership>>('/memberships/admin/list', {
+      params: params as QueryParams,
+    }),
 
   getById: (id: string) => apiGet<Membership>(`/memberships/${id}`),
 

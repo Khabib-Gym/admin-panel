@@ -1,14 +1,8 @@
 'use client';
 
+import { Ban, Edit, MoreHorizontal, Pause, Play } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { toast } from 'sonner';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,13 +13,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { MoreHorizontal, Pause, Play, Ban, Edit } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  useCancelMembership,
   usePauseMembership,
   useResumeMembership,
-  useCancelMembership,
 } from '@/hooks/queries/use-memberships';
-import { toast } from 'sonner';
 import type { Membership } from '@/types/models';
 
 interface MembershipActionsProps {
