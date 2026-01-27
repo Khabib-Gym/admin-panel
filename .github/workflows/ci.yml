@@ -3,18 +3,8 @@ name: CI
 on:
   push:
     branches: [main]
-    paths:
-      - 'admin/**'
-      - '.github/workflows/admin-*.yml'
   pull_request:
     branches: [main]
-    paths:
-      - 'admin/**'
-      - '.github/workflows/admin-*.yml'
-
-defaults:
-  run:
-    working-directory: admin
 
 permissions:
   contents: write
@@ -43,7 +33,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('admin/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -63,7 +53,7 @@ jobs:
           commit_message: 'style: auto-fix biome formatting [admin]'
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
-          file_pattern: 'admin/**'
+          file_pattern: 'src/**'
 
   typecheck:
     name: Type Check
@@ -84,7 +74,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('admin/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -113,7 +103,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('admin/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -137,7 +127,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
-          path: admin/.next
+          path: .next
           retention-days: 1
 
   # Placeholder for future tests
@@ -154,7 +144,7 @@ jobs:
   #       with:
   #         node-version: ${{ env.NODE_VERSION }}
   #         cache: 'npm'
-  #         cache-dependency-path: admin/package-lock.json
+  #         cache-dependency-path: package-lock.json
   #
   #     - name: Install dependencies
   #       run: npm ci

@@ -16,10 +16,6 @@ on:
         required: false
         type: string
 
-defaults:
-  run:
-    working-directory: admin
-
 permissions:
   id-token: write
   contents: read
@@ -44,7 +40,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('admin/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -120,8 +116,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./admin
-          file: ./admin/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
           tags: |
             ${{ steps.vars.outputs.image_uri }}
