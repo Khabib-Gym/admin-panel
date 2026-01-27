@@ -26,7 +26,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         try {
-          const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`;
+          // Use BACKEND_API_URL for server-side (runtime), fallback to NEXT_PUBLIC_API_URL (build-time)
+          const baseUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || '';
+          const apiUrl = `${baseUrl}/api/v1/auth/login`;
           console.log('[Auth] Attempting login to:', apiUrl);
 
           const response = await fetch(apiUrl, {
