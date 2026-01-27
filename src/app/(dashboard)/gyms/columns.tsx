@@ -64,12 +64,16 @@ export function getGymColumns({ onEdit, onDelete }: ColumnActionsProps): ColumnD
           {
             label: 'Analytics',
             icon: BarChart,
-            onClick: () => (window.location.href = `/analytics/${gym.id}`),
+            onClick: () => {
+              window.location.href = `/analytics/${gym.id}`;
+            },
           },
           {
             label: 'Members',
             icon: Users,
-            onClick: () => (window.location.href = `/gyms/${gym.id}/members`),
+            onClick: () => {
+              window.location.href = `/gyms/${gym.id}/members`;
+            },
           },
           {
             label: 'Delete',
