@@ -46,8 +46,26 @@ async function handleResponse<T>(response: Response): Promise<T> {
   const data = await response.json();
 
   if (!response.ok) {
+    // Handle FastAPI's 422 validation errors
+    if (response.status === 422 && data.detail) {
+      const details = Array.isArray(data.detail) ? data.detail : [data.detail];
+      const messages = details.map((d: { msg?: string; loc?: string[] }) => {
+        const field = d.loc?.slice(-1)[0] || 'field';
+        return `${field}: ${d.msg}`;
+      });
+      throw new ApiError(
+        messages.join(', ') || 'Validation error',
+        response.status,
+        'VALIDATION_ERROR',
+        details.map((d: { msg?: string; loc?: string[] }) => ({
+          field: d.loc?.slice(-1)[0] || 'unknown',
+          message: d.msg || 'Invalid value',
+        })),
+      );
+    }
+
     throw new ApiError(
-      data.error?.message || 'An error occurred',
+      data.error?.message || data.detail || 'An error occurred',
       response.status,
       data.error?.code,
       data.error?.details,

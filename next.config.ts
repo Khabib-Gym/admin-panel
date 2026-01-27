@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployments
   output: 'standalone',
 
+  // Base path for running behind ALB with path-based routing
+  // Remove this when using a custom domain (host-based routing)
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
+
   // Disable x-powered-by header for security
   poweredByHeader: false,
 

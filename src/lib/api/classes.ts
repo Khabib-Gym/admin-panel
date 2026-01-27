@@ -16,7 +16,7 @@ export interface CreateClassInput {
   gym_id: string;
   name: string;
   description?: string;
-  type: 'fitness' | 'strength' | 'cardio' | 'hiit' | 'grappling' | 'boxing' | 'muay_thai';
+  type: 'fitness' | 'strength' | 'cardio' | 'hiit' | 'grappling' | 'boxing' | 'muay_thai' | 'mma';
   scheduled_at: string;
   duration_minutes: number;
   capacity: number;
