@@ -1,18 +1,9 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
-import {
-  Calendar,
-  CheckCircle,
-  Eye,
-  Pencil,
-  Play,
-  Trash,
-  Users,
-  XCircle,
-} from 'lucide-react';
-import Link from 'next/link';
 import { format } from 'date-fns';
+import { Calendar, CheckCircle, Eye, Pencil, Play, Trash, Users, XCircle } from 'lucide-react';
+import Link from 'next/link';
 import { DataTableColumnHeader } from '@/components/data-table/column-header';
 import { DataTableRowActions, type RowAction } from '@/components/data-table/row-actions';
 import { StatusBadge } from '@/components/shared/status-badge';

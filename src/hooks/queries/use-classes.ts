@@ -2,9 +2,9 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  classesApi,
   type ClassListParams,
   type CreateClassInput,
+  classesApi,
   type UpdateClassInput,
 } from '@/lib/api/classes';
 import { queryKeys } from '@/lib/query/keys';
