@@ -2,6 +2,8 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+  type ChangePasswordInput,
+  type UpdatePreferencesInput,
   type UpdateUserInput,
   type UpdateUserRoleInput,
   type UserListParams,
@@ -60,5 +62,40 @@ export function useCurrentUser() {
   return useQuery({
     queryKey: queryKeys.users.detail('me'),
     queryFn: () => usersApi.getMe(),
+  });
+}
+
+export function useUpdateCurrentUser() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdateUserInput) => usersApi.updateMe(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.users.detail('me') });
+    },
+  });
+}
+
+export function useUserPreferences() {
+  return useQuery({
+    queryKey: ['user', 'preferences'],
+    queryFn: () => usersApi.getPreferences(),
+  });
+}
+
+export function useUpdateUserPreferences() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdatePreferencesInput) => usersApi.updatePreferences(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user', 'preferences'] });
+    },
+  });
+}
+
+export function useChangePassword() {
+  return useMutation({
+    mutationFn: (data: ChangePasswordInput) => usersApi.changePassword(data),
   });
 }

@@ -9,6 +9,7 @@ export interface User {
   gender?: string;
   height_cm?: number;
   weight_kg?: number;
+  bio?: string;
   profile_image_url?: string;
   role: 'member' | 'coach' | 'admin' | 'super_admin';
   is_active: boolean;
@@ -18,13 +19,39 @@ export interface User {
   updated_at: string;
 }
 
-export interface UserWithStats extends User {
-  stats?: {
-    total_visits: number;
-    total_classes: number;
-    total_workouts: number;
-    current_streak: number;
-  };
+// User Preferences
+export interface UserPreferences {
+  push_notifications_enabled: boolean;
+  email_notifications_enabled: boolean;
+  workout_reminders_enabled: boolean;
+  profile_public: boolean;
+  show_on_leaderboard: boolean;
+  allow_follows: boolean;
+}
+
+export interface UserStats {
+  khabib_score: number;
+  total_visits: number;
+  total_classes: number;
+  total_private_sessions: number;
+  total_workouts_generated: number;
+  total_workout_minutes: number;
+  current_streak: number;
+  longest_streak: number;
+  global_rank?: number;
+}
+
+// Response from GET /users/me (nested structure)
+export interface UserWithStats {
+  user: User;
+  stats: UserStats;
+}
+
+// Response from GET /admin/users/:id (flat structure for admin view)
+export interface AdminUserDetail extends User {
+  has_coach_profile: boolean;
+  is_accepting_clients?: boolean;
+  stats?: UserStats;
 }
 
 // Gym

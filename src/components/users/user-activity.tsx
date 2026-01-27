@@ -3,10 +3,10 @@
 import { Activity, Calendar, Dumbbell, Flame } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import type { UserWithStats } from '@/types/models';
+import type { UserStats } from '@/types/models';
 
 interface UserActivityProps {
-  stats: UserWithStats['stats'];
+  stats?: UserStats;
   isLoading?: boolean;
 }
 
@@ -72,9 +72,9 @@ export function UserActivity({ stats, isLoading }: UserActivityProps) {
     },
     {
       icon: Dumbbell,
-      label: 'Workouts Completed',
-      value: stats?.total_workouts ?? 0,
-      description: 'Logged workouts',
+      label: 'Workouts Generated',
+      value: stats?.total_workouts_generated ?? 0,
+      description: 'AI-generated workouts',
     },
     {
       icon: Flame,
