@@ -121,11 +121,7 @@ export function ClassBookings({ classId }: ClassBookingsProps) {
           booking.status === 'confirmed' &&
           (classItem.status === 'scheduled' || classItem.status === 'in_progress') && (
             <>
-              <Button
-                size="sm"
-                onClick={() => handleCheckIn(booking)}
-                disabled={isCheckingIn}
-              >
+              <Button size="sm" onClick={() => handleCheckIn(booking)} disabled={isCheckingIn}>
                 <CheckCircle className="mr-1 h-4 w-4" />
                 Check In
               </Button>

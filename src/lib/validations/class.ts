@@ -13,9 +13,12 @@ export const CLASS_TYPES = [
 
 export const classSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  type: z.enum(['fitness', 'strength', 'cardio', 'hiit', 'boxing', 'muay_thai', 'grappling', 'mma'], {
-    message: 'Please select a class type',
-  }),
+  type: z.enum(
+    ['fitness', 'strength', 'cardio', 'hiit', 'boxing', 'muay_thai', 'grappling', 'mma'],
+    {
+      message: 'Please select a class type',
+    },
+  ),
   description: z.string().optional().or(z.literal('')),
   scheduled_at: z.string().min(1, 'Please select a date and time'),
   duration_minutes: z

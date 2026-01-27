@@ -14,7 +14,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -22,13 +21,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useGyms } from '@/hooks/queries/use-gyms';
 import {
   CLASS_TYPES,
+  type ClassFormValues,
   classSchema,
   defaultClassValues,
-  type ClassFormValues,
 } from '@/lib/validations/class';
-import { useGyms } from '@/hooks/queries/use-gyms';
 
 interface ClassFormProps {
   initialData?: Partial<ClassFormValues>;
