@@ -3,7 +3,7 @@
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -29,11 +29,37 @@ function NavItemLink({
   pathname: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
 
   const hasChildren = item.children && item.children.length > 0;
 
+  // Delay rendering Collapsible until after hydration to prevent ID mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (hasChildren && !isCollapsed) {
+    // Render a placeholder during SSR to prevent hydration mismatch
+    if (!mounted) {
+      return (
+        <div
+          className={cn(
+            'flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+          )}
+        >
+          <div className="flex items-center gap-3">
+            <item.icon className="h-5 w-5 shrink-0" />
+            <span>{item.title}</span>
+          </div>
+          <ChevronDown className="h-4 w-4 shrink-0" />
+        </div>
+      );
+    }
+
     return (
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger asChild>

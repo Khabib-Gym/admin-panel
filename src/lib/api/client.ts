@@ -63,6 +63,14 @@ async function handleResponse<T>(response: Response): Promise<T> {
     );
   }
 
+  // Handle paginated responses - transform to { items, pagination } format
+  if (data.meta?.pagination && Array.isArray(data.data)) {
+    return {
+      items: data.data,
+      pagination: data.meta.pagination,
+    } as T;
+  }
+
   return data.data;
 }
 

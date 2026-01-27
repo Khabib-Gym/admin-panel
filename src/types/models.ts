@@ -48,12 +48,10 @@ export interface Gym {
   updated_at: string;
 }
 
-export interface GymWithStats extends Gym {
-  stats?: {
-    active_members: number;
-    visits_today: number;
-    classes_today: number;
-  };
+export interface GymWithStats {
+  gym: Gym;
+  active_members: number;
+  visits_today: number;
 }
 
 // Membership

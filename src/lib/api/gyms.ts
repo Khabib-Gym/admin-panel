@@ -6,6 +6,7 @@ export interface GymListParams extends PaginationParams, SortParams {
   city?: string;
   country?: string;
   is_active?: boolean;
+  include_inactive?: boolean;
   search?: string;
 }
 
