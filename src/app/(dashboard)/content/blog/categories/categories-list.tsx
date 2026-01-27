@@ -153,18 +153,10 @@ export function CategoriesList() {
                   <CardDescription className="text-xs">/{category.slug}</CardDescription>
                 </div>
                 <div className="flex gap-1">
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => setEditCategory(category)}
-                  >
+                  <Button size="icon" variant="ghost" onClick={() => setEditCategory(category)}>
                     <Pencil className="h-4 w-4" />
                   </Button>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => setDeleteCategory(category)}
-                  >
+                  <Button size="icon" variant="ghost" onClick={() => setDeleteCategory(category)}>
                     <Trash className="h-4 w-4" />
                   </Button>
                 </div>

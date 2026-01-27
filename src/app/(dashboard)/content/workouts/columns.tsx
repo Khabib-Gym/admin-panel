@@ -19,7 +19,10 @@ interface WorkoutColumnsOptions {
   onDuplicate: (workout: WorkoutTemplate) => void;
 }
 
-export function getWorkoutColumns({ onDelete, onDuplicate }: WorkoutColumnsOptions): ColumnDef<WorkoutTemplate>[] {
+export function getWorkoutColumns({
+  onDelete,
+  onDuplicate,
+}: WorkoutColumnsOptions): ColumnDef<WorkoutTemplate>[] {
   return [
     {
       accessorKey: 'name',

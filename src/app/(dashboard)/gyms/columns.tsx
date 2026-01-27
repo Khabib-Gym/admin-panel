@@ -14,7 +14,11 @@ interface ColumnActionsProps {
   onNavigate: (path: string) => void;
 }
 
-export function getGymColumns({ onEdit, onDelete, onNavigate }: ColumnActionsProps): ColumnDef<Gym>[] {
+export function getGymColumns({
+  onEdit,
+  onDelete,
+  onNavigate,
+}: ColumnActionsProps): ColumnDef<Gym>[] {
   return [
     {
       accessorKey: 'name',

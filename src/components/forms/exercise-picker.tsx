@@ -2,7 +2,6 @@
 
 import { Check, Search } from 'lucide-react';
 import { useState } from 'react';
-import { useExercises } from '@/hooks/queries/use-exercises';
 import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useExercises } from '@/hooks/queries/use-exercises';
 import type { Exercise } from '@/types/models';
 
 interface ExercisePickerProps {
@@ -45,7 +45,9 @@ export function ExercisePicker({
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>Add Exercise</DialogTitle>
-          <DialogDescription>Search and select an exercise to add to your workout</DialogDescription>
+          <DialogDescription>
+            Search and select an exercise to add to your workout
+          </DialogDescription>
         </DialogHeader>
 
         <div className="relative">

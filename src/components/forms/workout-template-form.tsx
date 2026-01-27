@@ -4,13 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { GripVertical, Loader2, Plus, Trash } from 'lucide-react';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { DIFFICULTY_LEVELS } from '@/lib/validations/exercise';
-import {
-  defaultWorkoutTemplateValues,
-  WORKOUT_TYPES,
-  workoutTemplateSchema,
-  type WorkoutTemplateFormValues,
-} from '@/lib/validations/workout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,6 +26,13 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import { DIFFICULTY_LEVELS } from '@/lib/validations/exercise';
+import {
+  defaultWorkoutTemplateValues,
+  WORKOUT_TYPES,
+  type WorkoutTemplateFormValues,
+  workoutTemplateSchema,
+} from '@/lib/validations/workout';
 import type { Exercise } from '@/types/models';
 import { ExercisePicker } from './exercise-picker';
 

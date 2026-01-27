@@ -2,10 +2,10 @@
 
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { WorkoutTemplateForm } from '@/components/forms/workout-template-form';
 import { useUpdateWorkoutTemplate, useWorkoutTemplate } from '@/hooks/queries/use-workouts';
 import type { WorkoutTemplateFormValues } from '@/lib/validations/workout';
-import { toast } from 'sonner';
 
 interface WorkoutEditProps {
   workoutId: string;

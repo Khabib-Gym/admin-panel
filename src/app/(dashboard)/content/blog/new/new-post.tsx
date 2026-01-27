@@ -22,7 +22,8 @@ export function NewBlogPost() {
       excerpt: data.excerpt || undefined,
       content: data.content,
       cover_image_url: data.cover_image_url || undefined,
-      category_id: data.category_id && data.category_id !== '__none__' ? data.category_id : undefined,
+      category_id:
+        data.category_id && data.category_id !== '__none__' ? data.category_id : undefined,
       type: data.type,
       is_published: data.is_published,
     };

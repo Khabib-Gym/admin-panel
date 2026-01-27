@@ -47,7 +47,11 @@ export function GymList() {
     });
   };
 
-  const columns = getGymColumns({ onEdit: handleEdit, onDelete: handleDelete, onNavigate: handleNavigate });
+  const columns = getGymColumns({
+    onEdit: handleEdit,
+    onDelete: handleDelete,
+    onNavigate: handleNavigate,
+  });
 
   if (isLoading) {
     return <PageLoader />;

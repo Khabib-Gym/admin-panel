@@ -2,10 +2,10 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  workoutsApi,
   type CreateWorkoutTemplateInput,
   type UpdateWorkoutTemplateInput,
   type WorkoutListParams,
+  workoutsApi,
 } from '@/lib/api/workouts';
 import { queryKeys } from '@/lib/query/keys';
 

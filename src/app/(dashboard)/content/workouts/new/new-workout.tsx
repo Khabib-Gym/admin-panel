@@ -1,10 +1,10 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { WorkoutTemplateForm } from '@/components/forms/workout-template-form';
 import { useCreateWorkoutTemplate } from '@/hooks/queries/use-workouts';
 import type { WorkoutTemplateFormValues } from '@/lib/validations/workout';
-import { toast } from 'sonner';
 
 export function NewWorkout() {
   const router = useRouter();

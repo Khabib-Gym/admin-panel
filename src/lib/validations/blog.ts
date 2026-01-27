@@ -12,7 +12,11 @@ export const blogPostSchema = z.object({
     .string()
     .min(2, 'Slug must be at least 2 characters')
     .regex(/^[a-z0-9-]+$/, 'Slug must be lowercase with hyphens only'),
-  excerpt: z.string().max(300, 'Excerpt must be less than 300 characters').optional().or(z.literal('')),
+  excerpt: z
+    .string()
+    .max(300, 'Excerpt must be less than 300 characters')
+    .optional()
+    .or(z.literal('')),
   content: z.string().min(10, 'Content must be at least 10 characters'),
   cover_image_url: z.string().url().optional().or(z.literal('')),
   category_id: z.string().optional().or(z.literal('')),

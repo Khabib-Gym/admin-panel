@@ -3,15 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import {
-  BODY_ZONES,
-  defaultExerciseValues,
-  DIFFICULTY_LEVELS,
-  EQUIPMENT,
-  exerciseSchema,
-  MUSCLES_TARGETED,
-  type ExerciseFormValues,
-} from '@/lib/validations/exercise';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -33,6 +24,15 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  BODY_ZONES,
+  DIFFICULTY_LEVELS,
+  defaultExerciseValues,
+  EQUIPMENT,
+  type ExerciseFormValues,
+  exerciseSchema,
+  MUSCLES_TARGETED,
+} from '@/lib/validations/exercise';
 
 interface ExerciseFormProps {
   initialData?: ExerciseFormValues;

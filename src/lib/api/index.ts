@@ -3,11 +3,21 @@ export { analyticsApi } from './analytics';
 export * from './auth';
 export type { AvailabilitySlotInput, SetAvailabilityInput } from './availability';
 export { availabilityApi } from './availability';
+export type {
+  BlogPostListParams,
+  CreateBlogCategoryInput,
+  CreateBlogPostInput,
+  UpdateBlogCategoryInput,
+  UpdateBlogPostInput,
+} from './blog';
+export { blogApi } from './blog';
 export type { ClassListParams, CreateClassInput, UpdateClassInput } from './classes';
 export { classesApi } from './classes';
 export * from './client';
 export type { CoachDetailResponse, CoachListParams, UpdateCoachProfileInput } from './coaches';
 export { coachesApi } from './coaches';
+export type { CreateExerciseInput, ExerciseListParams, UpdateExerciseInput } from './exercises';
+export { exercisesApi } from './exercises';
 export type { CreateGymInput, GymListParams, UpdateGymInput } from './gyms';
 export { gymsApi } from './gyms';
 export type { MembershipListParams, UpdateMembershipInput } from './memberships';
@@ -18,16 +28,6 @@ export type { CompleteSessionInput, SessionListParams } from './sessions';
 export { sessionsApi } from './sessions';
 export type { UpdateUserInput, UpdateUserRoleInput, UserListParams } from './users';
 export { usersApi } from './users';
-export type {
-  BlogPostListParams,
-  CreateBlogCategoryInput,
-  CreateBlogPostInput,
-  UpdateBlogCategoryInput,
-  UpdateBlogPostInput,
-} from './blog';
-export { blogApi } from './blog';
-export type { CreateExerciseInput, ExerciseListParams, UpdateExerciseInput } from './exercises';
-export { exercisesApi } from './exercises';
 export type {
   CreateWorkoutTemplateInput,
   UpdateWorkoutTemplateInput,

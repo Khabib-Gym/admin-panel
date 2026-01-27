@@ -100,7 +100,12 @@ export function getBlogColumns({
       header: 'Views',
       cell: ({ row }) => {
         const views = row.getValue('view_count') as number;
-        return <div className="flex items-center gap-1"><Eye className="h-3 w-3" />{views}</div>;
+        return (
+          <div className="flex items-center gap-1">
+            <Eye className="h-3 w-3" />
+            {views}
+          </div>
+        );
       },
     },
     {
@@ -129,19 +134,13 @@ export function getBlogColumns({
                 <Pencil className="mr-2 h-4 w-4" />
                 Edit
               </DropdownMenuItem>
-              {post.is_published ? (
-                onUnpublish && (
-                  <DropdownMenuItem onClick={() => onUnpublish(post)}>
-                    Unpublish
-                  </DropdownMenuItem>
-                )
-              ) : (
-                onPublish && (
-                  <DropdownMenuItem onClick={() => onPublish(post)}>
-                    Publish
-                  </DropdownMenuItem>
-                )
-              )}
+              {post.is_published
+                ? onUnpublish && (
+                    <DropdownMenuItem onClick={() => onUnpublish(post)}>Unpublish</DropdownMenuItem>
+                  )
+                : onPublish && (
+                    <DropdownMenuItem onClick={() => onPublish(post)}>Publish</DropdownMenuItem>
+                  )}
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => onDelete(post)}

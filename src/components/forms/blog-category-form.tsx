@@ -3,11 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import {
-  blogCategorySchema,
-  defaultBlogCategoryValues,
-  type BlogCategoryFormValues,
-} from '@/lib/validations/blog';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -20,6 +15,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  type BlogCategoryFormValues,
+  blogCategorySchema,
+  defaultBlogCategoryValues,
+} from '@/lib/validations/blog';
 
 interface BlogCategoryFormProps {
   initialData?: BlogCategoryFormValues;
@@ -101,10 +101,7 @@ export function BlogCategoryForm({
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Brief description of the category..."
-                  {...field}
-                />
+                <Textarea placeholder="Brief description of the category..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

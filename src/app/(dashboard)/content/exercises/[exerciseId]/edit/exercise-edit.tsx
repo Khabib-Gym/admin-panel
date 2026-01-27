@@ -2,10 +2,10 @@
 
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { ExerciseForm } from '@/components/forms/exercise-form';
 import { useExercise, useUpdateExercise } from '@/hooks/queries/use-exercises';
 import type { ExerciseFormValues } from '@/lib/validations/exercise';
-import { toast } from 'sonner';
 
 interface ExerciseEditProps {
   exerciseId: string;

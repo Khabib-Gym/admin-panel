@@ -57,11 +57,7 @@ export function getExerciseColumns({
       header: 'Difficulty',
       cell: ({ row }) => {
         const difficulty = row.getValue('difficulty') as string;
-        return (
-          <Badge variant={difficultyVariant[difficulty] ?? 'default'}>
-            {difficulty}
-          </Badge>
-        );
+        return <Badge variant={difficultyVariant[difficulty] ?? 'default'}>{difficulty}</Badge>;
       },
       filterFn: (row, id, value) => {
         return value.includes(row.getValue(id));
@@ -73,12 +69,8 @@ export function getExerciseColumns({
       cell: ({ row }) => {
         const musclesData = row.original.muscles_targeted;
         // Combine primary and secondary muscles for display
-        const allMuscles = [
-          ...(musclesData?.primary ?? []),
-          ...(musclesData?.secondary ?? []),
-        ];
-        if (allMuscles.length === 0)
-          return <span className="text-muted-foreground">-</span>;
+        const allMuscles = [...(musclesData?.primary ?? []), ...(musclesData?.secondary ?? [])];
+        if (allMuscles.length === 0) return <span className="text-muted-foreground">-</span>;
         return (
           <div className="flex flex-wrap gap-1">
             {allMuscles.slice(0, 2).map((m) => (
