@@ -11,9 +11,10 @@ import type { Gym } from '@/types/models';
 interface ColumnActionsProps {
   onEdit: (gym: Gym) => void;
   onDelete: (gym: Gym) => void;
+  onNavigate: (path: string) => void;
 }
 
-export function getGymColumns({ onEdit, onDelete }: ColumnActionsProps): ColumnDef<Gym>[] {
+export function getGymColumns({ onEdit, onDelete, onNavigate }: ColumnActionsProps): ColumnDef<Gym>[] {
   return [
     {
       accessorKey: 'name',
@@ -64,16 +65,12 @@ export function getGymColumns({ onEdit, onDelete }: ColumnActionsProps): ColumnD
           {
             label: 'Analytics',
             icon: BarChart,
-            onClick: () => {
-              window.location.href = `/analytics/${gym.id}`;
-            },
+            onClick: () => onNavigate(`/analytics/${gym.id}`),
           },
           {
             label: 'Members',
             icon: Users,
-            onClick: () => {
-              window.location.href = `/gyms/${gym.id}/members`;
-            },
+            onClick: () => onNavigate(`/gyms/${gym.id}/members`),
           },
           {
             label: 'Delete',

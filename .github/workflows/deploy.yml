@@ -108,14 +108,15 @@ jobs:
             --output text)
 
           # Set environment-specific build variables
+          # Note: NEXT_PUBLIC_API_URL should NOT include /api/v1 - the code adds it
           if [ "${ENVIRONMENT}" == "staging" ]; then
             # Staging uses path-based routing (/admin)
             NEXT_PUBLIC_BASE_PATH="/admin"
-            NEXT_PUBLIC_API_URL="http://${ALB_DNS}/api/v1"
+            NEXT_PUBLIC_API_URL="http://${ALB_DNS}"
           else
             # Production uses host-based routing (no base path)
             NEXT_PUBLIC_BASE_PATH=""
-            NEXT_PUBLIC_API_URL="https://api.khabib.com/api/v1"
+            NEXT_PUBLIC_API_URL="https://api.khabib.com"
           fi
 
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT

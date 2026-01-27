@@ -29,6 +29,10 @@ export function GymList() {
     setDeleteGym(gym);
   };
 
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
+
   const confirmDelete = () => {
     if (!deleteGym) return;
 
@@ -43,7 +47,7 @@ export function GymList() {
     });
   };
 
-  const columns = getGymColumns({ onEdit: handleEdit, onDelete: handleDelete });
+  const columns = getGymColumns({ onEdit: handleEdit, onDelete: handleDelete, onNavigate: handleNavigate });
 
   if (isLoading) {
     return <PageLoader />;

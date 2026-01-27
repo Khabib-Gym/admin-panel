@@ -158,6 +158,8 @@ export interface BlogCategory {
   name: string;
   slug: string;
   description?: string;
+  post_count?: number;
+  created_at?: string;
 }
 
 export interface BlogPost {
@@ -180,6 +182,11 @@ export interface BlogPost {
 }
 
 // Exercise
+export interface MusclesTargeted {
+  primary?: string[];
+  secondary?: string[];
+}
+
 export interface Exercise {
   id: string;
   name: string;
@@ -190,7 +197,7 @@ export interface Exercise {
   body_zone: 'arms' | 'legs' | 'core' | 'back' | 'chest' | 'shoulders' | 'full_body';
   difficulty: 'beginner' | 'intermediate' | 'advanced' | 'elite';
   equipment_ids?: string[];
-  muscles_targeted?: string[];
+  muscles_targeted?: MusclesTargeted;
   duration_seconds?: number;
   is_active: boolean;
 }

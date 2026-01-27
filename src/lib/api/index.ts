@@ -18,3 +18,20 @@ export type { CompleteSessionInput, SessionListParams } from './sessions';
 export { sessionsApi } from './sessions';
 export type { UpdateUserInput, UpdateUserRoleInput, UserListParams } from './users';
 export { usersApi } from './users';
+export type {
+  BlogPostListParams,
+  CreateBlogCategoryInput,
+  CreateBlogPostInput,
+  UpdateBlogCategoryInput,
+  UpdateBlogPostInput,
+} from './blog';
+export { blogApi } from './blog';
+export type { CreateExerciseInput, ExerciseListParams, UpdateExerciseInput } from './exercises';
+export { exercisesApi } from './exercises';
+export type {
+  CreateWorkoutTemplateInput,
+  UpdateWorkoutTemplateInput,
+  WorkoutExerciseInput,
+  WorkoutListParams,
+} from './workouts';
+export { workoutsApi } from './workouts';

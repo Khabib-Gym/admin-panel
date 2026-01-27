@@ -69,7 +69,11 @@ const columns: ColumnDef<MemberRow>[] = [
     id: 'expires_at',
     accessorFn: (row) => row.membership.expires_at,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Expires" />,
-    cell: ({ row }) => format(new Date(row.original.membership.expires_at), 'MMM d, yyyy'),
+    cell: ({ row }) => {
+      const expiresAt = row.original.membership.expires_at;
+      if (!expiresAt) return <span className="text-muted-foreground">-</span>;
+      return format(new Date(expiresAt), 'MMM d, yyyy');
+    },
   },
 ];
 

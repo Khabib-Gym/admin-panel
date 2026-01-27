@@ -16,6 +16,7 @@ interface ColumnActionsProps {
   onStart: (classItem: Class) => void;
   onComplete: (classItem: Class) => void;
   onCancel: (classItem: Class) => void;
+  onNavigate: (path: string) => void;
 }
 
 export function getClassColumns({
@@ -24,6 +25,7 @@ export function getClassColumns({
   onStart,
   onComplete,
   onCancel,
+  onNavigate,
 }: ColumnActionsProps): ColumnDef<Class>[] {
   return [
     {
@@ -49,7 +51,8 @@ export function getClassColumns({
       accessorKey: 'scheduled_at',
       header: ({ column }) => <DataTableColumnHeader column={column} title="Date & Time" />,
       cell: ({ row }) => {
-        const date = row.getValue('scheduled_at') as string;
+        const date = row.getValue('scheduled_at') as string | null;
+        if (!date) return <span className="text-muted-foreground">-</span>;
         return (
           <div className="flex items-center gap-1">
             <Calendar className="h-3 w-3 text-muted-foreground" />
@@ -95,16 +98,12 @@ export function getClassColumns({
           {
             label: 'View Details',
             icon: Eye,
-            onClick: () => {
-              window.location.href = `/classes/${classItem.id}`;
-            },
+            onClick: () => onNavigate(`/classes/${classItem.id}`),
           },
           {
             label: 'Bookings',
             icon: Users,
-            onClick: () => {
-              window.location.href = `/classes/${classItem.id}/bookings`;
-            },
+            onClick: () => onNavigate(`/classes/${classItem.id}/bookings`),
           },
         ];
 

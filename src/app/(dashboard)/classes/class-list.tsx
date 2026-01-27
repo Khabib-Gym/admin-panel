@@ -71,6 +71,10 @@ export function ClassList() {
     setCancelClass(classItem);
   };
 
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
+
   const confirmDelete = () => {
     if (!deleteClass) return;
 
@@ -105,6 +109,7 @@ export function ClassList() {
     onStart: handleStart,
     onComplete: handleComplete,
     onCancel: handleCancel,
+    onNavigate: handleNavigate,
   });
 
   if (isLoading) {
