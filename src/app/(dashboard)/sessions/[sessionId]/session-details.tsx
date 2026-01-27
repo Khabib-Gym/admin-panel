@@ -1,40 +1,40 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import { ConfirmDialog } from '@/components/shared/confirm-dialog';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import { useSession, useCompleteSession, useCancelSession } from '@/hooks/queries/use-sessions';
 import { format } from 'date-fns';
 import {
   ArrowLeft,
   Calendar,
-  Clock,
-  MapPin,
-  Mail,
   CheckCircle,
-  XCircle,
+  Clock,
   DollarSign,
-  Loader2,
   FileText,
+  Loader2,
+  Mail,
+  MapPin,
+  XCircle,
 } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'sonner';
+import { ConfirmDialog } from '@/components/shared/confirm-dialog';
+import { PageLoader } from '@/components/shared/loading-spinner';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { useCancelSession, useCompleteSession, useSession } from '@/hooks/queries/use-sessions';
 
 interface SessionDetailsProps {
   sessionId: string;

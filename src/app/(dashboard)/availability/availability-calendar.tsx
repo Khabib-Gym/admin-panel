@@ -1,9 +1,15 @@
 'use client';
 
+import { Clock, MapPin, Pencil, Plus, Trash } from 'lucide-react';
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { AvailabilitySlotForm } from '@/components/forms/availability-slot-form';
+import { ConfirmDialog } from '@/components/shared/confirm-dialog';
+import { EmptyState } from '@/components/shared/empty-state';
+import { PageLoader } from '@/components/shared/loading-spinner';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -11,17 +17,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { ConfirmDialog } from '@/components/shared/confirm-dialog';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import { EmptyState } from '@/components/shared/empty-state';
-import { AvailabilitySlotForm } from '@/components/forms/availability-slot-form';
 import { useMyAvailability, useSetAvailability } from '@/hooks/queries/use-availability';
-import { DAYS_OF_WEEK, type DayOfWeek } from '@/lib/validations/availability';
-import type { AvailabilitySlotFormValues } from '@/lib/validations/availability';
-import { Plus, Pencil, Trash, Clock, MapPin } from 'lucide-react';
-import { toast } from 'sonner';
-import type { CoachAvailability } from '@/types/models';
 import { useGyms } from '@/hooks/queries/use-gyms';
+import type { AvailabilitySlotFormValues } from '@/lib/validations/availability';
+import { DAYS_OF_WEEK, type DayOfWeek } from '@/lib/validations/availability';
+import type { CoachAvailability } from '@/types/models';
 
 export function AvailabilityCalendar() {
   const [showForm, setShowForm] = useState(false);

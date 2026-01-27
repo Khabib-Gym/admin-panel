@@ -1,11 +1,7 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  sessionsApi,
-  type SessionListParams,
-  type CompleteSessionInput,
-} from '@/lib/api/sessions';
+import { type CompleteSessionInput, type SessionListParams, sessionsApi } from '@/lib/api/sessions';
 import { queryKeys } from '@/lib/query/keys';
 
 export function useMySessions(params?: SessionListParams) {
@@ -40,8 +36,7 @@ export function useCancelSession() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, reason }: { id: string; reason?: string }) =>
-      sessionsApi.cancel(id, reason),
+    mutationFn: ({ id, reason }: { id: string; reason?: string }) => sessionsApi.cancel(id, reason),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.sessions.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.sessions.detail(id) });

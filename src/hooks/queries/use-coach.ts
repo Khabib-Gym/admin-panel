@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiGet, apiPatch, apiPost } from '@/lib/api/client';
-import { coachesApi, type CoachDetailResponse } from '@/lib/api/coaches';
+import { type CoachDetailResponse, coachesApi } from '@/lib/api/coaches';
 import { queryKeys } from '@/lib/query/keys';
 import type { PaginatedResponse } from '@/types/api';
 import type { Class, CoachAvailability, CoachProfile, PrivateSession } from '@/types/models';

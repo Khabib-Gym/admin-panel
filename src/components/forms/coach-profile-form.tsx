@@ -1,13 +1,10 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import {
-  coachProfileSchema,
-  type CoachProfileFormValues,
-  SPECIALIZATIONS,
-} from '@/lib/validations/coach';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -18,10 +15,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  type CoachProfileFormValues,
+  coachProfileSchema,
+  SPECIALIZATIONS,
+} from '@/lib/validations/coach';
 
 interface CoachProfileFormProps {
   initialData?: Partial<CoachProfileFormValues>;

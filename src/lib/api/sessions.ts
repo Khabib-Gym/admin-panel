@@ -1,6 +1,6 @@
-import { apiGet, apiPost, type QueryParams } from './client';
 import type { PaginatedResponse } from '@/types/api';
 import type { PrivateSession } from '@/types/models';
+import { apiGet, apiPost, type QueryParams } from './client';
 
 export interface SessionListParams extends QueryParams {
   status?: string;
@@ -27,5 +27,6 @@ export const sessionsApi = {
     apiPost<PrivateSession>(`/sessions/${id}/complete`, data),
 
   // Cancel a session
-  cancel: (id: string, reason?: string) => apiPost<PrivateSession>(`/sessions/${id}/cancel`, { reason }),
+  cancel: (id: string, reason?: string) =>
+    apiPost<PrivateSession>(`/sessions/${id}/cancel`, { reason }),
 };

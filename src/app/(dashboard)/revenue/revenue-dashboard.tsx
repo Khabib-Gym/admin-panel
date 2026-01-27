@@ -1,6 +1,11 @@
 'use client';
 
+import { format } from 'date-fns';
+import { Calendar, DollarSign, TrendingUp, Users } from 'lucide-react';
 import { useState } from 'react';
+import { AreaChart } from '@/components/charts';
+import { EmptyState } from '@/components/shared/empty-state';
+import { PageLoader } from '@/components/shared/loading-spinner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
@@ -9,12 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import { EmptyState } from '@/components/shared/empty-state';
-import { AreaChart } from '@/components/charts';
 import { useMyRevenue } from '@/hooks/queries/use-revenue';
-import { format } from 'date-fns';
-import { DollarSign, TrendingUp, Calendar, Users } from 'lucide-react';
 
 type PeriodOption = { value: number; label: string };
 
@@ -59,10 +59,7 @@ export function RevenueDashboard() {
           <h1 className="text-3xl font-bold tracking-tight">Revenue</h1>
           <p className="text-muted-foreground">Track your earnings from sessions</p>
         </div>
-        <Select
-          value={periodDays.toString()}
-          onValueChange={(v) => setPeriodDays(parseInt(v))}
-        >
+        <Select value={periodDays.toString()} onValueChange={(v) => setPeriodDays(parseInt(v))}>
           <SelectTrigger className="w-[150px]">
             <SelectValue />
           </SelectTrigger>
@@ -97,9 +94,7 @@ export function RevenueDashboard() {
             <TrendingUp className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${stats.revenue_this_month.toLocaleString()}
-            </div>
+            <div className="text-2xl font-bold">${stats.revenue_this_month.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">Revenue this month</p>
           </CardContent>
         </Card>
@@ -155,9 +150,8 @@ export function RevenueDashboard() {
               <p className="text-sm font-medium text-muted-foreground">Session Revenue</p>
               <p className="text-lg font-semibold">
                 $
-                {stats.entries
-                  ?.reduce((sum, e) => sum + e.session_revenue, 0)
-                  .toLocaleString() ?? 0}
+                {stats.entries?.reduce((sum, e) => sum + e.session_revenue, 0).toLocaleString() ??
+                  0}
               </p>
             </div>
             <div>

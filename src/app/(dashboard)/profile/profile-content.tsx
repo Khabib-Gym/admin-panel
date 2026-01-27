@@ -1,14 +1,14 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Award, DollarSign, Star } from 'lucide-react';
+import { toast } from 'sonner';
+import { CoachProfileForm } from '@/components/forms/coach-profile-form';
+import { PageLoader } from '@/components/shared/loading-spinner';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import { CoachProfileForm } from '@/components/forms/coach-profile-form';
 import { useCoachProfile, useUpdateCoachProfile } from '@/hooks/queries/use-coach';
-import { Star, DollarSign, Award } from 'lucide-react';
-import { toast } from 'sonner';
 import type { CoachProfileFormValues } from '@/lib/validations/coach';
 
 export function ProfileContent() {
@@ -78,7 +78,9 @@ export function ProfileContent() {
               <div className="flex items-center gap-2">
                 <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
                 <span className="font-medium">{profile.rating_average.toFixed(1)}</span>
-                <span className="text-sm text-muted-foreground">({profile.rating_count} reviews)</span>
+                <span className="text-sm text-muted-foreground">
+                  ({profile.rating_count} reviews)
+                </span>
               </div>
             )}
 

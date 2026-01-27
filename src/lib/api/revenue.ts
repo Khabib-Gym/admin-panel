@@ -25,6 +25,5 @@ export interface RevenueStats {
 
 export const revenueApi = {
   // Get current coach's revenue stats
-  getMyStats: (params?: RevenueParams) =>
-    apiGet<RevenueStats>('/coaches/me/revenue', { params }),
+  getMyStats: (params?: RevenueParams) => apiGet<RevenueStats>('/coaches/me/revenue', { params }),
 };

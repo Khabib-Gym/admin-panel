@@ -1,5 +1,5 @@
-import { apiGet, apiPost, apiDelete } from './client';
 import type { CoachAvailability } from '@/types/models';
+import { apiDelete, apiGet, apiPost } from './client';
 
 export interface AvailabilitySlotInput {
   day_of_week: string;

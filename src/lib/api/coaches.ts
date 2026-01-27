@@ -1,5 +1,5 @@
-import { apiGet, apiPatch, type QueryParams } from './client';
 import type { CoachProfile } from '@/types/models';
+import { apiGet, apiPatch, type QueryParams } from './client';
 
 export interface UpdateCoachProfileInput {
   bio?: string;
@@ -47,6 +47,5 @@ export const coachesApi = {
   getById: (id: string) => apiGet<CoachDetailResponse>(`/coaches/${id}`),
 
   // List coaches
-  list: (params?: CoachListParams) =>
-    apiGet<CoachProfile[]>('/coaches', { params }),
+  list: (params?: CoachListParams) => apiGet<CoachProfile[]>('/coaches', { params }),
 };

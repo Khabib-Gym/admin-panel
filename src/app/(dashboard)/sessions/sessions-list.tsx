@@ -1,19 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ConfirmDialog } from '@/components/shared/confirm-dialog';
-import { PageLoader } from '@/components/shared/loading-spinner';
-import { EmptyState } from '@/components/shared/empty-state';
-import { useMySessions, useCancelSession } from '@/hooks/queries/use-sessions';
 import { format, isAfter, startOfDay } from 'date-fns';
-import { Calendar, Clock, MapPin, XCircle, Eye, DollarSign } from 'lucide-react';
+import { Calendar, Clock, DollarSign, Eye, MapPin, XCircle } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
 import { toast } from 'sonner';
+import { ConfirmDialog } from '@/components/shared/confirm-dialog';
+import { EmptyState } from '@/components/shared/empty-state';
+import { PageLoader } from '@/components/shared/loading-spinner';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useCancelSession, useMySessions } from '@/hooks/queries/use-sessions';
 import type { PrivateSession } from '@/types/models';
 
 const statusVariants: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
@@ -26,11 +26,7 @@ const statusVariants: Record<string, 'default' | 'secondary' | 'destructive' | '
 };
 
 function StatusBadge({ status }: { status: string }) {
-  return (
-    <Badge variant={statusVariants[status] || 'outline'}>
-      {status.replace(/_/g, ' ')}
-    </Badge>
-  );
+  return <Badge variant={statusVariants[status] || 'outline'}>{status.replace(/_/g, ' ')}</Badge>;
 }
 
 export function SessionsList() {
@@ -158,10 +154,7 @@ export function SessionsList() {
       </div>
 
       {/* Tabs */}
-      <Tabs
-        value={activeTab}
-        onValueChange={(v) => setActiveTab(v as 'upcoming' | 'past')}
-      >
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'upcoming' | 'past')}>
         <TabsList>
           <TabsTrigger value="upcoming">Upcoming ({upcomingSessions.length})</TabsTrigger>
           <TabsTrigger value="past">Past ({pastSessions.length})</TabsTrigger>

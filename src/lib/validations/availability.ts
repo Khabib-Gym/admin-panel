@@ -15,7 +15,15 @@ export type DayOfWeek = (typeof DAYS_OF_WEEK)[number]['value'];
 export const availabilitySlotSchema = z
   .object({
     gym_id: z.string().min(1, 'Please select a gym'),
-    day_of_week: z.enum(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']),
+    day_of_week: z.enum([
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday',
+    ]),
     start_time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Invalid time format'),
     end_time: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Invalid time format'),
     is_recurring: z.boolean().optional(),

@@ -1,13 +1,9 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import {
-  availabilitySlotSchema,
-  type AvailabilitySlotFormValues,
-  DAYS_OF_WEEK,
-} from '@/lib/validations/availability';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -17,7 +13,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -27,6 +22,11 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useGyms } from '@/hooks/queries/use-gyms';
+import {
+  type AvailabilitySlotFormValues,
+  availabilitySlotSchema,
+  DAYS_OF_WEEK,
+} from '@/lib/validations/availability';
 
 interface AvailabilitySlotFormProps {
   initialData?: Partial<AvailabilitySlotFormValues>;
