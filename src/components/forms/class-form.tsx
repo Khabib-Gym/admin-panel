@@ -172,7 +172,7 @@ export function ClassForm({
                     min={15}
                     max={180}
                     {...field}
-                    onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 0)}
+                    onChange={(e) => field.onChange(Number.parseInt(e.target.value, 10) || 0)}
                   />
                 </FormControl>
                 <FormDescription>Between 15 and 180 minutes</FormDescription>
@@ -194,7 +194,7 @@ export function ClassForm({
                     min={1}
                     max={100}
                     {...field}
-                    onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 0)}
+                    onChange={(e) => field.onChange(Number.parseInt(e.target.value, 10) || 0)}
                   />
                 </FormControl>
                 <FormDescription>Maximum number of participants</FormDescription>

@@ -7,13 +7,10 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
-// Get basePath from environment (baked in at build time)
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  // Configure basePath for server-side auth routes
-  // This tells NextAuth that auth API routes are at {basePath}/api/auth
-  basePath: basePath ? `${basePath}/api/auth` : '/api/auth',
+  // Trust the host header when running behind ALB/reverse proxy
+  // Without this, CSRF validation fails with "Bad request"
+  trustHost: true,
   providers: [
     Credentials({
       name: 'credentials',

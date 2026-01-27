@@ -188,7 +188,7 @@ export function WorkoutTemplateForm({
                       <Input
                         type="number"
                         {...field}
-                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                        onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 0)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -209,7 +209,7 @@ export function WorkoutTemplateForm({
                         {...field}
                         value={field.value ?? ''}
                         onChange={(e) =>
-                          field.onChange(e.target.value ? parseInt(e.target.value) : undefined)
+                          field.onChange(e.target.value ? parseInt(e.target.value, 10) : undefined)
                         }
                       />
                     </FormControl>
@@ -231,7 +231,7 @@ export function WorkoutTemplateForm({
                         {...field}
                         value={field.value ?? ''}
                         onChange={(e) =>
-                          field.onChange(e.target.value ? parseInt(e.target.value) : undefined)
+                          field.onChange(e.target.value ? parseInt(e.target.value, 10) : undefined)
                         }
                       />
                     </FormControl>
@@ -324,7 +324,7 @@ export function WorkoutTemplateForm({
                                   value={field.value ?? ''}
                                   onChange={(e) =>
                                     field.onChange(
-                                      e.target.value ? parseInt(e.target.value) : undefined,
+                                      e.target.value ? parseInt(e.target.value, 10) : undefined,
                                     )
                                   }
                                 />
@@ -346,7 +346,7 @@ export function WorkoutTemplateForm({
                                   value={field.value ?? ''}
                                   onChange={(e) =>
                                     field.onChange(
-                                      e.target.value ? parseInt(e.target.value) : undefined,
+                                      e.target.value ? parseInt(e.target.value, 10) : undefined,
                                     )
                                   }
                                 />
@@ -368,7 +368,7 @@ export function WorkoutTemplateForm({
                                   value={field.value ?? ''}
                                   onChange={(e) =>
                                     field.onChange(
-                                      e.target.value ? parseInt(e.target.value) : undefined,
+                                      e.target.value ? parseInt(e.target.value, 10) : undefined,
                                     )
                                   }
                                 />
@@ -390,7 +390,7 @@ export function WorkoutTemplateForm({
                                   value={field.value ?? ''}
                                   onChange={(e) =>
                                     field.onChange(
-                                      e.target.value ? parseInt(e.target.value) : undefined,
+                                      e.target.value ? parseInt(e.target.value, 10) : undefined,
                                     )
                                   }
                                 />

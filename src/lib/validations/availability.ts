@@ -30,8 +30,8 @@ export const availabilitySlotSchema = z
   })
   .refine(
     (data) => {
-      const start = parseInt(data.start_time.replace(':', ''));
-      const end = parseInt(data.end_time.replace(':', ''));
+      const start = parseInt(data.start_time.replace(':', ''), 10);
+      const end = parseInt(data.end_time.replace(':', ''), 10);
       return end > start;
     },
     {

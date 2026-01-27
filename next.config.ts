@@ -14,12 +14,28 @@ const nextConfig: NextConfig = {
   // Enable strict mode for better React practices
   reactStrictMode: true,
 
+  // Enable gzip compression
+  compress: true,
+
+  // Image optimization
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+    formats: ['image/avif', 'image/webp'],
+  },
+
   // Experimental features
   experimental: {
     // Enable server actions
     serverActions: {
       bodySizeLimit: '2mb',
     },
+    // Optimize package imports for smaller bundles
+    optimizePackageImports: ['lucide-react', '@tanstack/react-query', 'recharts', 'date-fns'],
   },
 };
 

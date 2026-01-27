@@ -161,7 +161,7 @@ export function AchievementForm({
                     type="number"
                     min={1}
                     {...field}
-                    onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 1)}
+                    onChange={(e) => field.onChange(Number.parseInt(e.target.value, 10) || 1)}
                   />
                 </FormControl>
                 <FormDescription>Target to unlock</FormDescription>
@@ -182,7 +182,7 @@ export function AchievementForm({
                     type="number"
                     min={0}
                     {...field}
-                    onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 0)}
+                    onChange={(e) => field.onChange(Number.parseInt(e.target.value, 10) || 0)}
                   />
                 </FormControl>
                 <FormDescription>Score reward</FormDescription>
@@ -203,7 +203,7 @@ export function AchievementForm({
                     type="number"
                     min={0}
                     {...field}
-                    onChange={(e) => field.onChange(Number.parseInt(e.target.value) || 0)}
+                    onChange={(e) => field.onChange(Number.parseInt(e.target.value, 10) || 0)}
                   />
                 </FormControl>
                 <FormDescription>Sort position</FormDescription>

@@ -331,7 +331,7 @@ export function ExerciseForm({
                     {...field}
                     value={field.value ?? ''}
                     onChange={(e) =>
-                      field.onChange(e.target.value ? parseInt(e.target.value) : undefined)
+                      field.onChange(e.target.value ? parseInt(e.target.value, 10) : undefined)
                     }
                   />
                 </FormControl>

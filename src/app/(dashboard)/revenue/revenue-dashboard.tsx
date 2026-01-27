@@ -59,7 +59,7 @@ export function RevenueDashboard() {
           <h1 className="text-3xl font-bold tracking-tight">Revenue</h1>
           <p className="text-muted-foreground">Track your earnings from sessions</p>
         </div>
-        <Select value={periodDays.toString()} onValueChange={(v) => setPeriodDays(parseInt(v))}>
+        <Select value={periodDays.toString()} onValueChange={(v) => setPeriodDays(parseInt(v, 10))}>
           <SelectTrigger className="w-[150px]">
             <SelectValue />
           </SelectTrigger>

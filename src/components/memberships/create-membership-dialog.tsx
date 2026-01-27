@@ -297,7 +297,7 @@ export function CreateMembershipDialog({ open, onOpenChange }: CreateMembershipD
                         min={1}
                         max={365}
                         {...field}
-                        onChange={(e) => field.onChange(parseInt(e.target.value) || 30)}
+                        onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 30)}
                       />
                     </FormControl>
                     <FormDescription>1-365 days</FormDescription>

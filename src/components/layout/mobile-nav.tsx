@@ -7,7 +7,13 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { getNavigationForRole, type NavItem } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
 
@@ -110,6 +116,8 @@ export function MobileNav({ user }: MobileNavProps) {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+        <SheetDescription className="sr-only">Main navigation for the admin panel</SheetDescription>
         <div className="flex h-16 items-center border-b px-4">
           <Link href="/" className="flex items-center gap-2" onClick={handleNavigate}>
             <span className="text-xl font-bold">Khabib</span>

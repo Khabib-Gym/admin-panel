@@ -24,8 +24,24 @@ export function LoadingSpinner({ size = 'default', className, text }: LoadingSpi
 
 export function PageLoader() {
   return (
-    <div className="flex h-[50vh] items-center justify-center">
-      <LoadingSpinner size="lg" text="Loading..." />
+    <div className="flex min-h-[400px] items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <LoadingSpinner size="lg" />
+        <p className="text-sm text-muted-foreground">Loading...</p>
+      </div>
     </div>
   );
+}
+
+export function InlineLoader({ text = 'Loading...' }: { text?: string }) {
+  return (
+    <div className="flex items-center gap-2 text-muted-foreground">
+      <LoadingSpinner size="sm" />
+      <span className="text-sm">{text}</span>
+    </div>
+  );
+}
+
+export function ButtonLoader() {
+  return <Loader2 className="mr-2 h-4 w-4 animate-spin" />;
 }

@@ -67,19 +67,22 @@ export function LoginForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel htmlFor="email">Email</FormLabel>
               <FormControl>
                 <Input
+                  id="email"
                   type="email"
                   placeholder="admin@khabib.com"
                   autoComplete="email"
                   disabled={isSubmitting}
+                  aria-invalid={!!fieldState.error}
+                  aria-describedby={fieldState.error ? 'email-error' : undefined}
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="email-error" role="alert" />
             </FormItem>
           )}
         />
@@ -87,19 +90,22 @@ export function LoginForm() {
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel htmlFor="password">Password</FormLabel>
               <FormControl>
                 <Input
+                  id="password"
                   type="password"
                   placeholder="Enter your password"
                   autoComplete="current-password"
                   disabled={isSubmitting}
+                  aria-invalid={!!fieldState.error}
+                  aria-describedby={fieldState.error ? 'password-error' : undefined}
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="password-error" role="alert" />
             </FormItem>
           )}
         />
