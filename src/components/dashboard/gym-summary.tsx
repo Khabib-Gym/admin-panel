@@ -5,10 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, MapPin } from 'lucide-react';
-import type { GymWithStats } from '@/types/models';
+import type { Gym } from '@/types/models';
 
 interface GymSummaryProps {
-  gyms: GymWithStats[];
+  gyms: Gym[];
   isLoading?: boolean;
 }
 
@@ -78,10 +78,7 @@ export function GymSummary({ gyms, isLoading }: GymSummaryProps) {
                     {gym.city}, {gym.country}
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="font-medium">{gym.stats?.active_members ?? 0}</div>
-                  <div className="text-xs text-muted-foreground">members</div>
-                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </Link>
             ))}
           </div>

@@ -48,7 +48,8 @@ export interface Gym {
   updated_at: string;
 }
 
-export interface GymWithStats {
+// Response from GET /gyms/:id (gym detail with stats)
+export interface GymDetailResponse {
   gym: Gym;
   active_members: number;
   visits_today: number;

@@ -28,14 +28,14 @@ const mockClassData = [
 ];
 
 export function GymAnalyticsView({ gymId }: GymAnalyticsViewProps) {
-  const { data: gym, isLoading: gymLoading } = useGym(gymId);
+  const { data: gymData, isLoading: gymLoading } = useGym(gymId);
   const { data: analytics, isLoading: analyticsLoading } = useGymAnalytics(gymId);
 
   if (gymLoading || analyticsLoading) {
     return <PageLoader />;
   }
 
-  if (!gym) {
+  if (!gymData) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold">Gym not found</h2>
@@ -45,6 +45,8 @@ export function GymAnalyticsView({ gymId }: GymAnalyticsViewProps) {
       </div>
     );
   }
+
+  const gym = gymData.gym;
 
   return (
     <div className="space-y-6">
