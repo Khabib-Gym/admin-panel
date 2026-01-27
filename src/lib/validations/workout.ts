@@ -13,7 +13,7 @@ export const WORKOUT_TYPES = [
 export const workoutExerciseSchema = z.object({
   exercise_id: z.string().min(1, 'Select an exercise'),
   exercise_name: z.string().optional(), // For display purposes
-  order: z.number(),
+  order: z.number().min(1, 'Order must be at least 1'),
   sets: z.number().min(1).max(20).optional(),
   reps: z.number().min(1).max(100).optional(),
   duration_seconds: z.number().min(0).optional(),
@@ -40,7 +40,7 @@ export type WorkoutTemplateFormValues = z.infer<typeof workoutTemplateSchema>;
 
 export const defaultWorkoutExerciseValues: WorkoutExerciseFormValues = {
   exercise_id: '',
-  order: 0,
+  order: 1,
   sets: 3,
   reps: 10,
   rest_seconds: 60,

@@ -58,14 +58,3 @@ export function useDeleteWorkoutTemplate() {
     },
   });
 }
-
-export function useDuplicateWorkoutTemplate() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (id: string) => workoutsApi.duplicate(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.content.workouts.all });
-    },
-  });
-}

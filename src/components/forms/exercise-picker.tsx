@@ -30,7 +30,10 @@ export function ExercisePicker({
 }: ExercisePickerProps) {
   const [search, setSearch] = useState('');
 
-  const { data, isLoading } = useExercises({ search, page_size: 50 });
+  const { data, isLoading } = useExercises({
+    ...(search.length >= 2 && { search }),
+    page_size: 50,
+  });
 
   const exercises = (data?.items ?? []).filter((ex) => !excludeIds.includes(ex.id));
 

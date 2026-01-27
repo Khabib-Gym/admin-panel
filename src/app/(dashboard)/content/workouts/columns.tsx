@@ -1,7 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
-import { Copy, MoreHorizontal, Pencil, Trash } from 'lucide-react';
+import { MoreHorizontal, Pencil, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,12 +16,10 @@ import type { WorkoutTemplate } from '@/types/models';
 
 interface WorkoutColumnsOptions {
   onDelete: (workout: WorkoutTemplate) => void;
-  onDuplicate: (workout: WorkoutTemplate) => void;
 }
 
 export function getWorkoutColumns({
   onDelete,
-  onDuplicate,
 }: WorkoutColumnsOptions): ColumnDef<WorkoutTemplate>[] {
   return [
     {
@@ -113,10 +111,6 @@ export function getWorkoutColumns({
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
                 </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onDuplicate(workout)}>
-                <Copy className="mr-2 h-4 w-4" />
-                Duplicate
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem

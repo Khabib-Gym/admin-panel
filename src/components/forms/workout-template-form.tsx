@@ -65,7 +65,7 @@ export function WorkoutTemplateForm({
     append({
       exercise_id: exercise.id,
       exercise_name: exercise.name,
-      order: fields.length,
+      order: fields.length + 1,
       sets: 3,
       reps: 10,
       rest_seconds: 60,
@@ -75,9 +75,9 @@ export function WorkoutTemplateForm({
   const moveExercise = (from: number, to: number) => {
     if (to >= 0 && to < fields.length) {
       move(from, to);
-      // Update order values
+      // Update order values (1-based)
       fields.forEach((_, index) => {
-        form.setValue(`exercises.${index}.order`, index);
+        form.setValue(`exercises.${index}.order`, index + 1);
       });
     }
   };

@@ -230,17 +230,61 @@ export interface WorkoutExercise {
 }
 
 // Achievement
+export const AchievementCategory = {
+  visits: 'visits',
+  streaks: 'streaks',
+  classes: 'classes',
+  workouts: 'workouts',
+  social: 'social',
+  milestones: 'milestones',
+} as const;
+
+export type AchievementCategoryType = (typeof AchievementCategory)[keyof typeof AchievementCategory];
+
+export const RequirementType = {
+  total_visits: 'total_visits',
+  streak_length: 'streak_length',
+  classes_attended: 'classes_attended',
+  workouts_completed: 'workouts_completed',
+  followers_count: 'followers_count',
+  khabib_score: 'khabib_score',
+} as const;
+
+export type RequirementTypeValue = (typeof RequirementType)[keyof typeof RequirementType];
+
 export interface Achievement {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   icon_url?: string;
-  category: string;
-  requirement_type: string;
+  category: AchievementCategoryType;
+  requirement_type: RequirementTypeValue;
   requirement_value: number;
   points: number;
+  display_order?: number;
   is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
+
+// Membership types
+export const MembershipType = {
+  basic: 'basic',
+  premium: 'premium',
+  vip: 'vip',
+  trial: 'trial',
+} as const;
+
+export type MembershipTypeValue = (typeof MembershipType)[keyof typeof MembershipType];
+
+export const MembershipStatus = {
+  active: 'active',
+  paused: 'paused',
+  expired: 'expired',
+  cancelled: 'cancelled',
+} as const;
+
+export type MembershipStatusValue = (typeof MembershipStatus)[keyof typeof MembershipStatus];
 
 // Analytics
 export interface GymAnalytics {

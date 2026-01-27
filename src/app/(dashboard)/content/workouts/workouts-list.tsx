@@ -10,11 +10,7 @@ import { ConfirmDialog } from '@/components/shared/confirm-dialog';
 import { EmptyState } from '@/components/shared/empty-state';
 import { PageLoader } from '@/components/shared/loading-spinner';
 import { Button } from '@/components/ui/button';
-import {
-  useDeleteWorkoutTemplate,
-  useDuplicateWorkoutTemplate,
-  useWorkoutTemplates,
-} from '@/hooks/queries/use-workouts';
+import { useDeleteWorkoutTemplate, useWorkoutTemplates } from '@/hooks/queries/use-workouts';
 import type { WorkoutTemplate } from '@/types/models';
 import { getWorkoutColumns } from './columns';
 
@@ -24,21 +20,9 @@ export function WorkoutsList() {
 
   const { data, isLoading, error } = useWorkoutTemplates();
   const { mutate: deleteWorkout, isPending: isDeleting } = useDeleteWorkoutTemplate();
-  const { mutate: duplicateWorkout } = useDuplicateWorkoutTemplate();
 
   const handleDelete = (workout: WorkoutTemplate) => {
     setDeleteTarget(workout);
-  };
-
-  const handleDuplicate = (workout: WorkoutTemplate) => {
-    duplicateWorkout(workout.id, {
-      onSuccess: () => {
-        toast.success('Workout template duplicated');
-      },
-      onError: (err) => {
-        toast.error(err.message || 'Failed to duplicate workout');
-      },
-    });
   };
 
   const confirmDelete = () => {
@@ -55,7 +39,7 @@ export function WorkoutsList() {
     });
   };
 
-  const columns = getWorkoutColumns({ onDelete: handleDelete, onDuplicate: handleDuplicate });
+  const columns = getWorkoutColumns({ onDelete: handleDelete });
 
   if (isLoading) {
     return <PageLoader />;

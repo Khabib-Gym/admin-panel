@@ -47,6 +47,4 @@ export const workoutsApi = {
     apiPatch<WorkoutTemplate>(`/workout-templates/${id}`, data),
 
   delete: (id: string) => apiDelete<{ message: string }>(`/workout-templates/${id}`),
-
-  duplicate: (id: string) => apiPost<WorkoutTemplate>(`/workout-templates/${id}/duplicate`),
 };

@@ -13,7 +13,7 @@ export function NewWorkout() {
   const handleSubmit = (data: WorkoutTemplateFormValues) => {
     const exercises = data.exercises.map((ex, index) => ({
       exercise_id: ex.exercise_id,
-      order: index,
+      order: index + 1,
       sets: ex.sets,
       reps: ex.reps,
       duration_seconds: ex.duration_seconds,
