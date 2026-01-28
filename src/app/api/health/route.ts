@@ -10,6 +10,6 @@ export async function GET() {
       status: 'healthy',
       timestamp: new Date().toISOString(),
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
