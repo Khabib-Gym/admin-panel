@@ -59,7 +59,7 @@ jobs:
           NEXT_TELEMETRY_DISABLED: 1
           NEXTAUTH_SECRET: dummy-secret-for-build
           NEXTAUTH_URL: http://localhost:3000
-          NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+          NEXT_PUBLIC_API_URL: http://localhost:8000
           NEXT_PUBLIC_BASE_PATH: ${{ github.event.inputs.environment == 'staging' && '/admin' || '' }}
 
   build-and-deploy:

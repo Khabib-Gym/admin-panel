@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # ============================================
 # Stage 1: Dependencies
 # ============================================
@@ -35,7 +33,7 @@ ENV NEXT_TELEMETRY_DISABLED=$NEXT_TELEMETRY_DISABLED
 # Build-time environment variables
 # NEXT_PUBLIC_* vars are baked into the build
 ARG NEXT_PUBLIC_BASE_PATH=""
-ARG NEXT_PUBLIC_API_URL="http://localhost:8000/api/v1"
+ARG NEXT_PUBLIC_API_URL="http://localhost:8000"
 ENV NEXT_PUBLIC_BASE_PATH=$NEXT_PUBLIC_BASE_PATH
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
@@ -61,7 +59,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ARG NEXT_PUBLIC_BASE_PATH=""
 ENV NEXT_PUBLIC_BASE_PATH=$NEXT_PUBLIC_BASE_PATH
 
-# Create non-root user for security
+# Create non-root user
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
@@ -84,10 +82,6 @@ EXPOSE 3000
 # Set hostname for container networking
 ENV HOSTNAME="0.0.0.0"
 ENV PORT=3000
-
-# Health check - uses NEXT_PUBLIC_BASE_PATH if set, otherwise root
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3000${NEXT_PUBLIC_BASE_PATH:-}/ || exit 1
 
 # Start the application
 CMD ["node", "server.js"]
