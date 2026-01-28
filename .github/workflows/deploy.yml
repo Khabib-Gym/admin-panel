@@ -104,7 +104,7 @@ jobs:
           # Get ALB DNS for the environment
           ALB_DNS=$(aws cloudformation describe-stacks \
             --stack-name ${ENVIRONMENT}-khabib-alb \
-            --query 'Stacks[0].Outputs[?OutputKey==`ALBDNSName`].OutputValue' \
+            --query 'Stacks[0].Outputs[?OutputKey==`LoadBalancerDNSName`].OutputValue' \
             --output text)
 
           # Set environment-specific build variables
